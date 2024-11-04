@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'poppins';
+    src: url('./font/Poppins/Poppins-Medium.ttf');
+};
+@font-face {
+    font-family: 'poppinsBolt';
+    src: url('./font/Poppins/Poppins-Bold.ttf');
+};
+
+:root{
+    --bleu : #6872F0;
+    --white : #e4f4fd;
+    --bleuBtn : #4C58D4
+}
