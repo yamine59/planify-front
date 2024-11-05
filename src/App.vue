@@ -1,16 +1,22 @@
 <template>
-  <div class="flex">
-    <navbar/>
-  <router-view/>
+  <div class="app-container">
+    <navbar />
+    <router-view />
   </div>
-  
 </template>
+
 <script setup>
 import navbar from './components/navBar.vue';
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/style/variablecouleur.scss";
+
+
+.app-container {
+  display: flex;
+  width: 100vw;
+}
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -19,12 +25,15 @@ import navbar from './components/navBar.vue';
   text-align: center;
   color: #2c3e50;
 }
+
 .test {
   background-color: $primary;
   font-family: var(--poppinsBolt);
 }
+
 nav {
   padding: 30px;
+
   a {
     font-weight: bold;
     color: #2c3e50;
