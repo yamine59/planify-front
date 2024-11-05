@@ -1,6 +1,9 @@
 <template>
-  <navbar/>
+  <div class="flex">
+    <navbar/>
   <router-view/>
+  </div>
+  
 </template>
 <script setup>
 import navbar from './components/navBar.vue';
