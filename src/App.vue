@@ -7,6 +7,11 @@
 
 <script setup>
 import navbar from './components/navBar.vue';
+
+
+
+
+
 </script>
 
 <style lang="scss" scoped>
