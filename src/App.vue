@@ -20,7 +20,6 @@ import navbar from './components/navBar.vue';
 
 .app-container {
   display: flex;
-  width: 100vw;
 }
 
 #app {
