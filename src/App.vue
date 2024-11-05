@@ -1,15 +1,14 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-    <h1 class="bg-black p-10">
-      ddd
-    </h1>
-  </nav>
+  <navbar/>
   <router-view/>
 </template>
+<script setup>
+import navbar from './components/navBar.vue';
+</script>
 
 <style lang="scss">
+@import "@/style/variablecouleur.scss";
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -17,7 +16,10 @@
   text-align: center;
   color: #2c3e50;
 }
-
+.test {
+  background-color: $primary;
+  font-family: var(--poppinsBolt);
+}
 nav {
   padding: 30px;
   a {
