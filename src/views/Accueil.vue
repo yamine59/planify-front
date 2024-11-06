@@ -134,7 +134,7 @@
 }
 
 .nn {
-    flex-grow: 1;
+    
     background-color: #EFEFEF;
 }
 
