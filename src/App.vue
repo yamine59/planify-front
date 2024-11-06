@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <navbar />
-    <router-view />
+    <div class="grow"><router-view /></div>
   </div>
 </template>
 
@@ -17,7 +17,9 @@ import navbar from './components/navBar.vue';
 <style lang="scss" scoped>
 @import "@/style/variablecouleur.scss";
 
-
+.grow{
+  
+}
 .app-container {
   display: flex;
 }
