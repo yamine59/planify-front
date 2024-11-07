@@ -43,9 +43,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import IconPassword from "../components/iconPassword.vue";
+import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
-const router = useRouter()
+const router = useRouter();
+const store = useStore();
 
 const username = ref<string>('user');
 
@@ -84,7 +86,13 @@ const verify = (event: Event) => {
     }
 }
 
+const setTokenStore = (token:string) => {
+  const user = JSON.parse(atob(token.split('.')[1]));
+  store.commit('setUser', user);
+  store.commit('setToken', token);
+  store.commit('createToken', token);
 
+};
 
 const login = async () => {
     const data = {
@@ -108,8 +116,8 @@ const login = async () => {
         }
 
         const result = await response.json()
-
-        router.push('/')
+        setTokenStore(result.token);
+        router.push('/voyage')
     } catch (error) {
         console.error('Erreur durant la connexion : ', error)
     }

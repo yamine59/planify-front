@@ -1,10 +1,10 @@
 <template>
-    <div class="bgn font " v-if="user.id">
+    <div class="bgn font " v-if="user.username">
         <div class=" w-80"><img src="./../assets/img/Logo_en_blanc.png" alt=""></div>
         <div class="menucontainer">
             <div class="blocMenu">
                 <div class="flex hn rounded-lg items-center text-white gap-3 p-5 w-72 justify-between ">
-                    <div class="flex gap-4">
+                    <div class="flex gap-4 " @click="travel">
                         <CgProfile class="h-6 w-6 " />
                         <p>Mes voyages</p>
                     </div>
@@ -23,21 +23,37 @@
                     <FlIOsArrowRtl class="h-4 w-4 " />
                 </div>
             </div>
-            <div class="flex hn rounded-lg items-center text-white gap-3 p-5 w-72 justify-between ">
-                <div class="flex gap-4">
-                    <p>yamine</p>
+            <div class="flex  rounded-lg items-center text-white gap-3 p-5 w-72 justify-between ">
+                <div class="flex hn rounded-lg items-center text-white gap-3 p-5 w-72 justify-between">
+
+                    <div class="flex gap-4">
+                        <p>{{user.username}}</p>
+                    </div>
+                    <FlIOsArrowRtl class="h-4 w-4 " />
                 </div>
-                <FlIOsArrowRtl class="h-4 w-4 " />
+                <div @click="logout" class="hover:bg-red-500 rounded-lg items-center text-white gap-3 p-5 ">
+                    <LuLogOut/>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
+import router from '@/router';
 import store from '@/store';
-import { CgProfile, FlIOsArrowRtl } from '@kalimahapps/vue-icons';
+import { CgProfile, FlIOsArrowRtl ,LuLogOut } from '@kalimahapps/vue-icons';
 import { computed } from 'vue';
 const user = computed (() => store.state.user || {});
+
+const travel = () => {
+    router.push('/voyage')
+}
+
+const logout = () => {
+    store.dispatch('logout'); // Call the logout action in Vuex
+    router.push('/'); // Redirect to the login page
+};
 </script>
 <style scoped lang="scss">
 @import "@/style/variablecouleur.scss";

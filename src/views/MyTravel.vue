@@ -1,6 +1,6 @@
 <template>
     <div class="containerbody font ">
-        <div class="flex w-2/3 justify-start  mb-32 text-4xl">
+        <div class="flex w-2/3 justify-start  mb-20 text-4xl">
             <p>Bonjour {{user.username}},</p>
         </div>
 
