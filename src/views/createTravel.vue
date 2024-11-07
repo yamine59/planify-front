@@ -7,7 +7,7 @@
 
         <div class="bodyTravel">
             <div class="flex w-full justify-between p-5">
-                <p class="fontBolt">Mes voyage</p>
+                <p class="fontBolt">Creation de votre Planify</p>
                 <div class="flex gap-2">
                     <p>Trier par : </p>
                     <select name="pets" id="pet-select">
@@ -17,10 +17,9 @@
                     </select>
                 </div>
             </div>
-            <div class="">
-                <myTravelComp :listTravel="listTravel"
-                />
-            </div>
+           <div @click="activity" class="p-5 w-52 rounded-xl bg-blue-500">
+            ajouter une activité
+           </div>
 
         </div>
     </div>
@@ -30,40 +29,16 @@
 import { ref, onMounted, computed } from 'vue'
 import myTravelComp from '@/components/myTravelComp.vue';
 import store from '@/store';
+import router from '@/router';
 
 const user = computed (() => store.state.user || {});
 
 onMounted(() => {
-    list_travel()
+
 })
 
-const listTravel = ref()
-const list_travel = async () => {
-    try {
-        const response = await fetch('http://localhost:3001/travel/showTravel/1', {
-            method: 'get',
-
-            headers: {
-
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            console.log("ERREUR")
-            alert("erreur ")
-        }
-
-        const result = await response.json();
-
-        console.log(result.listtravel);
-
-        // list_quizz.value.push(result.quizz) 
-        listTravel.value = result.listtravel
-
-    } catch (err) {
-        console.error('Error during login:', err);
-    }
+const activity = () => {
+    router.push('/creation-activite')
 }
 
 </script>

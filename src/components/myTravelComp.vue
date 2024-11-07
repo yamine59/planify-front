@@ -25,7 +25,7 @@
                         style="text-overflow:ellipsis; overflow: hidden;">
                         {{ descrip }} 
                     </td>
-                    <td class="">
+                    <td class="py-5 pr-10">
                        <div @click="update" class="bg-blue-700 w-10 h-6 rounded-lg border-red-700 border-2 flex justify-center items-center" >
                         <AkPencil class="text-white"/>
                        </div>
@@ -72,8 +72,8 @@ const formattedDateD = (date,desc) => {
 }
 
 const updatePosition = (e) => {
-    mouseLeft.value = e.clientX + 5;
-    mouseTop.value = e.clientY + 10;
+    mouseLeft.value = e.clientX - 470;
+    mouseTop.value = e.clientY + 20;
 }
 
 
@@ -90,9 +90,10 @@ const updatePosition = (e) => {
     height: auto;
     padding: 10px;
     text-align: center;
-    border: 1px solid rgb(129, 129, 129);
+    border-radius: 6px;
     background-color: white;
     transition: .1s;
+    box-shadow: 0px 0px 15px -1px rgba(0,0,0,0.2);
 }
 
 table {

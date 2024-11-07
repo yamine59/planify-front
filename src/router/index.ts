@@ -21,7 +21,16 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Register',
     component: () => import('../views/Register.vue')
   },
-  
+  {
+    path: '/creation-voyage',
+    name: 'Voyage-create',
+    component: () => import('../views/createTravel.vue')
+  },
+  {
+    path: '/creation-activite',
+    name: 'activite-create',
+    component: () => import('../views/createActivity.vue')
+  },
 ];
 
 const router = createRouter({
