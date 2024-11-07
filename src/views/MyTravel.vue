@@ -1,31 +1,105 @@
 <template>
-    <div class="containerbody bg-red-500 "  >
-        <nav>
-            <p>bonjour ,</p>
-        </nav>
-         <div class="bodyTravel">
+    <div class="containerbody font ">
+        <div class="flex w-2/3 justify-start  mb-32 text-4xl">
+            <p>Bonjour {{user.username}},</p>
+        </div>
+
+
+        <div class="bodyTravel">
+            <div class="flex w-full justify-between p-5">
+                <p class="fontBolt">Mes voyage</p>
+                <div class="flex gap-2">
+                    <p>Trier par : </p>
+                    <select name="pets" id="pet-select">
+                        <option value="">Le plus reçent</option>
+                        <option value="dog">Le plus ancien</option>
+
+                    </select>
+                </div>
+            </div>
+          
+           
+
+            <div class="">
+                <myTravelComp :listTravel="listTravel"
+                />
+            </div>
 
         </div>
     </div>
 </template>
 
 <script setup>
+import { ref, onMounted, computed } from 'vue'
+import myTravelComp from '@/components/myTravelComp.vue';
+import store from '@/store';
+
+const user = computed (() => store.state.user || {});
+
+onMounted(() => {
+    list_travel()
+})
+
+const listTravel = ref()
+const list_travel = async () => {
+    try {
+        const response = await fetch('http://localhost:3001/travel/showTravel/1', {
+            method: 'get',
+
+            headers: {
+
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            console.log("ERREUR")
+            alert("erreur ")
+        }
+
+        const result = await response.json();
+
+        console.log(result.listtravel);
+
+        // list_quizz.value.push(result.quizz) 
+        listTravel.value = result.listtravel
+
+    } catch (err) {
+        console.error('Error during login:', err);
+    }
+}
+
 </script>
 
 <style lang="scss" scoped>
+@import "@/style/variablecouleur.scss";
+@import "@/style/variableFont.scss";
 
-.containerbody{
+.font {
+    font-family: $font-pop;
+}
+
+.fontBolt {
+    font-family: $font-pop-bolt;
+}
+
+.containerbody {
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100vh;
-    flex-grow: 1;
+    flex-grow: 0;
     position: relative;
-} 
+    background-color: $gris;
+    padding-top: 5vh;
+}
+
 .bodyTravel {
-    margin-top: 8%;
-        background-color: black;
-        min-height : 80%;
-        width: 80%;
-    }
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 30px;
+    min-height: 80%;
+    width: 80%;
+}
 </style>
