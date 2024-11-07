@@ -1,4 +1,8 @@
 export interface Props {
-    textColor?: string;
-    background?: string;
+  textColor?: string;
+  background?: string;
+}
+
+export interface Token {
+  token: string;
 }

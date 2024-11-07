@@ -10,11 +10,11 @@
 
             <div v-if="open == false" class=" hidden sm:flex m-auto md:mr-6 md:pr-5  flex-row   mt-4  ">
                 <button class="btn p-2 mr-6 w-32 rounded-md">Inscription</button>
-                <button class="btn p-2 w-32 rounded-md">Connexion</button>
+                <button @click="connexion" class="btn p-2 w-32 rounded-md">Connexion</button>
             </div>
             <div v-if="open == true" class=" z-10 flex flex-col w-full text-center nn mt-1  p-5 items-center">
                 <button class=" p-2 w-full  btn rounded-md my-2">Inscription</button>
-                <button class=" p-2 w-full  btn rounded-md ">Connexion</button>
+                <button @click="connexion" class=" p-2 w-full  btn rounded-md "><a href="">Connexion</a></button>
             </div>
         </div>
 
@@ -127,9 +127,17 @@
 <script setup>
 import { AnOutlinedMenu } from '@kalimahapps/vue-icons';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+
 const open = ref(false)
 const togglemenu = () =>{
     open.value = !open.value
+}
+
+const connexion = () => {
+    router.push('/login')
 }
 </script>
 
@@ -137,9 +145,6 @@ const togglemenu = () =>{
 <style scoped lang="scss">
 @import "@/style/variablecouleur.scss";
 @import "@/style/variableFont.scss";
-.wfull {
-    width: 100vw;
-}
 .btn {
     background-color: $gris;
 }
