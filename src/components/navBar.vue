@@ -37,7 +37,7 @@
 import store from '@/store';
 import { CgProfile, FlIOsArrowRtl } from '@kalimahapps/vue-icons';
 import { computed } from 'vue';
-const user = computed (() => store .state.user || {});
+const user = computed (() => store.state.user || {});
 </script>
 <style scoped lang="scss">
 @import "@/style/variablecouleur.scss";
