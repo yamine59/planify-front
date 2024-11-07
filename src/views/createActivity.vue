@@ -7,7 +7,7 @@
 
         <div class="bodyTravel">
             <div class="flex w-full justify-between p-5">
-                <p class="fontBolt">Mes voyage</p>
+                <p class="fontBolt">Creation de votre Planify</p>
                 <div class="flex gap-2">
                     <p>Trier par : </p>
                     <select name="pets" id="pet-select">
@@ -17,10 +17,8 @@
                     </select>
                 </div>
             </div>
-            <div class="">
-                <myTravelComp :listTravel="listTravel"
-                />
-            </div>
+
+            <activityAddCom/>
 
         </div>
     </div>
@@ -28,43 +26,16 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-import myTravelComp from '@/components/myTravelComp.vue';
+import activityAddCom from '@/components/activityAddCom.vue';
 import store from '@/store';
 
 const user = computed (() => store.state.user || {});
 
 onMounted(() => {
-    list_travel()
+
 })
 
-const listTravel = ref()
-const list_travel = async () => {
-    try {
-        const response = await fetch('http://localhost:3001/travel/showTravel/1', {
-            method: 'get',
 
-            headers: {
-
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            console.log("ERREUR")
-            alert("erreur ")
-        }
-
-        const result = await response.json();
-
-        console.log(result.listtravel);
-
-        // list_quizz.value.push(result.quizz) 
-        listTravel.value = result.listtravel
-
-    } catch (err) {
-        console.error('Error during login:', err);
-    }
-}
 
 </script>
 
