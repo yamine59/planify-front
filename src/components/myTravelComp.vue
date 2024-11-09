@@ -1,6 +1,5 @@
 <template>
     <div class="tableContainer">
-
         <table>
             <thead>
                 <tr>
@@ -13,32 +12,34 @@
                 </tr>
             </thead>
 
-
-            <tbody >
-                <tr class="" v-for="(list, index) in listTravel  " :key="index" >
+            <tbody>
+                <tr v-for="(list, index) in listTravel" :key="index">
                     <td>{{ list.destination }}</td>
                     <td>{{ list.name }}</td>
-                    <td>{{ formattedDateD(list.start_date ,list.description) }}</td>
-                    <td>{{ formattedDateD(list.end_date,list.description) }}</td>
-                    <td @mouseover="showTooltip(list.description)"   @mousemove="updatePosition"
-                        @mouseleave="tooltipActive = false;" 
+                    <td>{{ formattedDateD(list.start_date) }}</td>
+                    <td>{{ formattedDateD(list.end_date) }}</td>
+                    <td
+                        @mouseover="showTooltip(list.description)"
+                        @mousemove="updatePosition"
+                        @mouseleave="tooltipActive = false;"
                         style="text-overflow:ellipsis; overflow: hidden;">
-                        {{ descrip }} 
+                        {{ list.description.slice(0, 25) + ' ...' }}
                     </td>
                     <td class="py-5 pr-10">
-                       <div @click="update" class="bg-blue-700 w-10 h-6 rounded-lg border-red-700 border-2 flex justify-center items-center" >
-                        <AkPencil class="text-white"/>
-                       </div>
+                        <div
+                            @click="update"
+                            class="bg-blue-700 w-10 h-6 rounded-lg border-red-700 border-2 flex justify-center items-center">
+                            <AkPencil class="text-white" />
+                        </div>
                     </td>
-                            
-            
                 </tr>
-              
             </tbody>
         </table>
 
-
-        <div v-if="tooltipActive" :style="`left: ${mouseLeft}px; top: ${mouseTop}px;`" class="tooltip">
+        <div
+            v-if="tooltipActive"
+            :style="`left: ${mouseLeft}px; top: ${mouseTop}px;`"
+            class="tooltip">
             {{ descriptionn }}
         </div>
     </div>
@@ -48,35 +49,35 @@
 import { computed, onMounted, ref } from 'vue';
 import { AkPencil } from '@kalimahapps/vue-icons';
 
-
 const props = defineProps({
     key: Number,
     listTravel: Array,
-
 });
 
-
-const descrip = ref()
-const descriptionn = ref('')
 let tooltipActive = ref(false);
 let mouseLeft = ref(0);
 let mouseTop = ref(0);
-const showTooltip = (desc) => {
-    tooltipActive.value = true;
-    descriptionn.value = desc;
-}
+let descriptionn = ref('');
 
-const formattedDateD = (date,desc) => {
-    descrip.value = desc.slice(0, 25) + ' ...';
+// Pour stocker descrip en dehors de la fonction formattedDateD
+const descrip = ref('');
+
+// Cette fonction sert maintenant à formater la date uniquement
+const formattedDateD = (date) => {
     return new Date(date).toLocaleDateString();
-}
+};
 
+// Cette fonction met à jour la position du tooltip
 const updatePosition = (e) => {
     mouseLeft.value = e.clientX - 470;
     mouseTop.value = e.clientY + 20;
-}
+};
 
-
+// Affiche le tooltip avec la description complète
+const showTooltip = (desc) => {
+    tooltipActive.value = true;
+    descriptionn.value = desc;
+};
 </script>
 
 <style scoped>
@@ -93,7 +94,7 @@ const updatePosition = (e) => {
     border-radius: 6px;
     background-color: white;
     transition: .1s;
-    box-shadow: 0px 0px 15px -1px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 15px -1px rgba(0, 0, 0, 0.2);
 }
 
 table {
@@ -120,12 +121,12 @@ thead th:nth-child(4) {
 thead th:nth-child(5) {
     width: 35%;
 }
+
 thead th:nth-child(6) {
     width: 5%;
 }
 
-th,
-td {
+th, td {
     text-align: center;
     height: 50px;
     border-bottom: 1px solid #ddd;

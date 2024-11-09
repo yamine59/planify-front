@@ -3,6 +3,12 @@ export interface Props {
   background?: string;
 }
 
-export interface Token {
-  token: string;
+export interface User {
+  username: string;
+  id: string;
+}
+
+export interface State {
+  user: User | null;
+  token: string | null;
 }

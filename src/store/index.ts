@@ -1,36 +1,37 @@
 import { createStore } from 'vuex';
+import { User, State } from '@/types/types';
 
 export default createStore({
   state: {
     user: null,
     token: localStorage.getItem('token') || null,
-    role: localStorage.getItem('role') || null,
   },
   mutations: {
-    setUser(state, user) {
+    setUser(state: State, user: User) {
       state.user = user;
-      state.role = user.role; 
       localStorage.setItem('username', user.username);
-      localStorage.setItem('role', user.role);
+      localStorage.setItem('userId', user.id);
     },
-    setToken(state, token) {
+    setToken(state, token: string) {
       state.token = token;
       localStorage.setItem('token', token);
     },
     clearAuth(state) {
       state.user = null;
       state.token = null;
-      state.role = null;
       localStorage.removeItem('token');
       localStorage.removeItem('username');
-      localStorage.removeItem('role');
+      localStorage.removeItem('userId');
     },
   },
   actions: {
-    login({ commit }, token) {
+    login({ commit }, token: string) {
       const decodedToken = JSON.parse(atob(token.split('.')[1]));
       commit('setToken', token);
-      commit('setUser', decodedToken);
+      commit('setUser', {
+        username: decodedToken.username,
+        id: decodedToken.id
+      });
     },
     logout({ commit }) {
       commit('clearAuth');
@@ -43,15 +44,18 @@ export default createStore({
         if (isExpired) {
           commit('clearAuth');
         } else {
-          commit('setUser', decodedToken);
+          commit('setUser', {
+            username: decodedToken.username,
+            id: decodedToken.id
+          });
         }
       }
     },
   },
   getters: {
     user: (state) => state.user,
+    userId: (state) => state.user?.id, 
     token: (state) => state.token,
     isLoggedIn: (state) => !!state.token,
-    isAdmin: (state) => state.role === 'admin',
   },
 });

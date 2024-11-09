@@ -1,7 +1,7 @@
 <template>
     <div class="containerbody font ">
-        <div class="flex w-2/3 justify-start  mb-20 text-4xl">
-            <p>Bonjour {{user.username}},</p>
+        <div class="flex w-3/4 justify-start  mb-20 text-4xl">
+            <p>Bonjour {{user.username}}</p>
         </div>
 
 
@@ -55,8 +55,6 @@ const list_travel = async () => {
         }
 
         const result = await response.json();
-
-        console.log(result.listtravel);
 
         // list_quizz.value.push(result.quizz) 
         listTravel.value = result.listtravel

@@ -1,77 +1,213 @@
 <template>
-    <div class="containerbody font ">
-        <div class="flex w-2/3 justify-start  mb-20 text-4xl">
-            <p>Bonjour {{user.username}},</p>
+    <div class="containerbody flex flex-col pl-14 w-full h-full pt-10">
+        <div class="flex w-full justify-start text-4xl">
+            <p>Bonjour {{ user.username }}</p>
         </div>
 
+        <div class="container flex flex-col bg-white rounded-xl p-5 my-10">
+            <div class="flex justify-between">
+                <p class="fontBolt text-2xl mb-6">Creation de votre Planify</p>
+                <p class="fontBolt text-2xl mb-6 ">Votre récap</p>
+            </div>
 
-        <div class="bodyTravel">
-            <div class="flex w-full justify-between p-5">
-                <p class="fontBolt">Creation de votre Planify</p>
-                <div class="flex gap-2">
-                    <p>Trier par : </p>
-                    <select name="pets" id="pet-select">
-                        <option value="">Le plus reçent</option>
-                        <option value="dog">Le plus ancien</option>
+            <div class="flex justify-between mb-10">
+                <FormVoyage 
+                class="w-2/5"
+                v-model:destination="destination"
+                v-model:arrive="arrive"
+                v-model:depart="depart"
+                v-model:nom="nom"
+                v-model:participants="participants"
+                v-model:prix="prix"
+                v-model:description="description"
+            />
 
-                    </select>
+            <div class="recap w-2/5 rounded-lg px-6 py-4">
+                <div class="mb-4">
+                    <IoOutlineAirplane class="text-3xl mb-1"/>
+                    <p class="text-xl truncate">{{ destination }}</p>
+                </div>
+
+                <div class="mb-4">
+                    <BsCalendar3 class="text-3xl mb-1"/>
+                    <div class="flex gap-5">
+                        <p>{{ arrive }}</p>
+                        <p v-if="arrive && depart">/</p>
+                        <p>{{ depart }}</p>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <AkPencil class="text-3xl mb-1"/>
+                    <p class="truncate">{{ nom }}</p>
+                </div>
+
+                <div class="mb-4">
+                    <PhFillUsers class="text-3xl mb-1"/>
+                    <div class="flex gap-2">
+                        <p class="truncate">
+                            {{ participants }}
+                        </p>
+                        <p v-if="participants">Participants</p>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <AnOutlinedDollarCircle class="text-3xl mb-1"/>
+                    <div class="flex gap-2">
+                        <p class="truncate line-clamp-4 text-ellipsis whitespace-normal">
+                            {{ prix }}
+                        </p>
+                        <p v-if="prix">€</p>
+                    </div>
+                </div>
+
+                <div>
+                    <AkPaper class="text-3xl mb-1"/>
+                    <p class="truncate line-clamp-4 text-ellipsis whitespace-normal">{{ description }}</p>
                 </div>
             </div>
-           <div @click="activity" class="p-5 w-52 rounded-xl bg-blue-500">
-            ajouter une activité
-           </div>
+            </div>
 
+            <div class="text-red-600 my-2 text-center text-xs">
+                <p v-for="erreur in erreurs" :key="erreur">
+                    {{ erreur }}
+                </p>
+            </div>
+
+            <div class="flex justify-center cursor-pointer">
+                <div @click="verify" class="p-5 w-52 rounded-xl bg-blue-500 text-center">
+                    Organiser
+                </div>
+            </div>
         </div>
+
     </div>
 </template>
 
-<script setup>
+
+
+<script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
-import myTravelComp from '@/components/myTravelComp.vue';
 import store from '@/store';
 import router from '@/router';
+import FormVoyage from '@/components/formVoyage.vue';
+import { User } from '@/types/types';
+import { IoOutlineAirplane, BsCalendar3, AkPencil, PhFillUsers, AkPaper, AnOutlinedDollarCircle } from '@kalimahapps/vue-icons';
 
-const user = computed (() => store.state.user || {});
+const destination = ref('');
+const arrive = ref('');
+const depart = ref('');
+const nom = ref('');
+const participants = ref('');
+const description = ref('');
+const prix = ref('');
 
-onMounted(() => {
+const erreurs = ref<string[]>([])
 
-})
+const user = computed(() => store.state.user || {} as User);
+const userId = computed(() => store.state.user?.id || null);
 
-const activity = () => {
-    router.push('/creation-activite')
+console.log("Utilisateur dans le store :", store.state.user);
+
+
+const verify = (event: Event) => {
+    event.preventDefault()
+    erreurs.value = []
+
+    if (!destination.value.length) {
+        erreurs.value.push('Le champ destination est obligatoire !')
+    }
+    if (!arrive.value.length) {
+        erreurs.value.push("Le champ date d'arrivé est obligatoire !");
+    }
+    if (!depart.value.length) {
+        erreurs.value.push("Le champ date de départ est obligatoire !");
+    }
+    if (!nom.value.length) {
+        erreurs.value.push("Le champ nom est obligatoire !");
+    }
+    if (!participants.value || isNaN(Number(participants.value)) || Number(participants.value) <= 0) {
+        erreurs.value.push("Le champ participants est obligatoire et doit être un nombre positif !");
+    }
+    if (!description.value.length) {
+        erreurs.value.push("Le champ description est obligatoire !");
+    }
+
+    if (erreurs.value.length === 0) {
+        travel();
+    } else {
+        return;
+    }
 }
 
+
+console.log("User ID:", userId.value);
+
+const travel = async () => {
+    const data = {
+        name: nom.value,
+        destination: destination.value,
+        persons: Number(participants.value),
+        start_date: arrive.value,
+        end_date: depart.value,
+        description: description.value,
+        amount: prix.value,
+    }
+    try {
+        const response = await fetch(`http://localhost:3001/travel/creationTravel/${userId.value}`, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Accept': 'application/json, text/plain, /',
+                'Content-Type': 'application/json',
+            },
+        })
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('Erreur lors de la création du voyage:', errorData.message);
+            return;
+        }
+
+        nom.value = ''
+        destination.value = ''
+        participants.value = ''
+        arrive.value = ''
+        depart.value = ''
+        description.value = ''
+        prix.value = ''
+
+        router.push('/')
+    } catch (error) {
+        console.error('Erreur durant la création du voyage : ', error)
+    }
+}
 </script>
+
 
 <style lang="scss" scoped>
 @import "@/style/variablecouleur.scss";
 @import "@/style/variableFont.scss";
 
-.font {
+.containerbody {
     font-family: $font-pop;
+    background-color: $gris;
+}
+
+.container {
+    width: 95%;
 }
 
 .fontBolt {
     font-family: $font-pop-bolt;
 }
 
-.containerbody {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    flex-grow: 0;
-    position: relative;
+.recap {
     background-color: $gris;
-    padding-top: 5vh;
 }
 
-.bodyTravel {
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    border-radius: 30px;
-    min-height: 40%;
-    width: 80%;
+.truncate {
+    word-break: break-word;
 }
 </style>

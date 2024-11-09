@@ -22,8 +22,8 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/Register.vue')
   },
   {
-    path: '/creation-voyage',
-    name: 'Voyage-create',
+    path: '/createTravel',
+    name: 'createTravel',
     component: () => import('../views/createTravel.vue')
   },
   {

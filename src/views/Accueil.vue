@@ -9,11 +9,11 @@
             </div>
 
             <div v-if="open == false" class=" hidden sm:flex m-auto md:mr-6 md:pr-5  flex-row   mt-4  ">
-                <button class="btn p-2 mr-6 w-32 rounded-md">Inscription</button>
+                <button @click="register" class="btn p-2 mr-6 w-32 rounded-md">Inscription</button>
                 <button @click="connexion" class="btn p-2 w-32 rounded-md">Connexion</button>
             </div>
             <div v-if="open == true" class=" z-10 flex flex-col w-full text-center nn mt-1  p-5 items-center">
-                <button class=" p-2 w-full  btn rounded-md my-2">Inscription</button>
+                <button @click="register" class=" p-2 w-full  btn rounded-md my-2">Inscription</button>
                 <button @click="connexion" class=" p-2 w-full  btn rounded-md "><a href="">Connexion</a></button>
             </div>
         </div>
@@ -138,6 +138,9 @@ const togglemenu = () =>{
 
 const connexion = () => {
     router.push('/login')
+}
+const register = () => {
+    router.push('/register')
 }
 </script>
 

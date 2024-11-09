@@ -2,8 +2,8 @@
     <div class="tout flex justify-center items-center flex-col p-8">
         <div @click="accueil"><img src="../assets/img/logo.png" class="w-60 cursor-pointer"></div>
 
-        <form @click.prevent="verify" class="form bg-white p-8 rounded-2xl mt-8">
-            <p  class="titre text-xl mb-6">Connexion</p>
+        <form class="form bg-white p-8 rounded-2xl mt-8">
+            <p class="titre text-xl mb-6">Connexion</p>
 
             <label class="text-sm">
                 <p class="mb-2 text-gray-600">Pseudo</p>
@@ -25,7 +25,7 @@
                 </div>
             </label>
 
-            <button class="w-full bg-blue-500 text-white px-20 py-3 rounded-lg mt-8">
+            <button @click.prevent="verify" class="w-full bg-blue-500 text-white px-20 py-3 rounded-lg mt-8">
                 Connexion
             </button>
 
