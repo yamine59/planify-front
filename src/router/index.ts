@@ -21,7 +21,25 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Register',
     component: () => import('../views/Register.vue')
   },
+<<<<<<< Updated upstream
   
+=======
+  {
+    path: '/createTravel',
+    name: 'createTravel',
+    component: () => import('../views/createTravel.vue')
+  },
+  {
+    path: '/creation-activite',
+    name: 'activite-create',
+    component: () => import('../views/createActivity.vue')
+  },
+  {
+    path: '/contact',
+    name: 'Contact',
+    component: () => import('../views/Contact.vue')
+  },
+>>>>>>> Stashed changes
 ];
 
 const router = createRouter({
