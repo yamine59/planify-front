@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { useStore } from 'vuex';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -9,7 +10,8 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/voyage',
     name: 'Voyage',
-    component: () => import('../views/MyTravel.vue')
+    component: () => import('../views/MyTravel.vue'),
+    meta: { requiresAuth: true },
   },
   {
     path: '/login',
@@ -24,12 +26,26 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/createTravel',
     name: 'createTravel',
-    component: () => import('../views/createTravel.vue')
+    component: () => import('../views/createTravel.vue'),
+    meta: { requiresAuth: true },
   },
   {
     path: '/creation-activite',
     name: 'activite-create',
-    component: () => import('../views/createActivity.vue')
+    component: () => import('../views/createActivity.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/modifierTravel/:id',
+    name: 'modifierTravel',
+    component: () => import('../views/updateTravel.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/modifieractivit/:id',
+    name: 'modifieractivite',
+    component: () => import('../views/updateActivity.vue'),
+    meta: { requiresAuth: true },
   },
   {
     path: '/contact',
@@ -44,6 +60,26 @@ const router = createRouter({
   scrollBehavior() {
     // Always scroll to top
     return { top: 0 };
+  }
+});
+
+router.beforeEach((to, from, next) => {
+  const store = useStore();
+  const isLoggedIn = store.getters.isLoggedIn;
+  const isAdmin = store.getters.isAdmin;
+
+  if (['/', '/register', '/'].includes(to.path)) {
+    next(); 
+  } else if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!isLoggedIn) {
+      next('/');
+    } else if (to.matched.some(record => record.meta.requiresAdmin) && !isAdmin) {
+      next('/'); 
+    } else {
+      next();
+    }
+  } else {
+    next();
   }
 });
 

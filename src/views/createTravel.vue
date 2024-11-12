@@ -76,7 +76,7 @@
 
             <div class="flex justify-center cursor-pointer">
                 <div @click="verify" class="p-5 w-52 rounded-xl bg-blue-500 text-center">
-                    Organiser
+                    Suivant
                 </div>
             </div>
         </div>
@@ -143,8 +143,6 @@ const verify = (event: Event) => {
 }
 
 
-console.log("User ID:", userId.value);
-
 const travel = async () => {
     const data = {
         name: nom.value,
@@ -179,7 +177,7 @@ const travel = async () => {
         description.value = ''
         prix.value = ''
 
-        router.push('/')
+        router.push('/creation-activite')
     } catch (error) {
         console.error('Erreur durant la création du voyage : ', error)
     }

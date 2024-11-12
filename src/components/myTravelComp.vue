@@ -25,9 +25,10 @@
                         style="text-overflow:ellipsis; overflow: hidden;">
                         {{ list.description.slice(0, 25) + ' ...' }}
                     </td>
+                    
                     <td class="py-5 pr-10">
                         <div
-                            @click="update"
+                            @click="update(list.id_travel)"
                             class="bg-blue-700 w-10 h-6 rounded-lg border-red-700 border-2 flex justify-center items-center">
                             <AkPencil class="text-white" />
                         </div>
@@ -48,10 +49,12 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue';
 import { AkPencil } from '@kalimahapps/vue-icons';
+import router from '@/router';
 
 const props = defineProps({
     key: Number,
     listTravel: Array,
+    id:Number,
 });
 
 let tooltipActive = ref(false);
@@ -59,21 +62,23 @@ let mouseLeft = ref(0);
 let mouseTop = ref(0);
 let descriptionn = ref('');
 
-// Pour stocker descrip en dehors de la fonction formattedDateD
+
 const descrip = ref('');
 
-// Cette fonction sert maintenant à formater la date uniquement
+const update = (e) => {
+    router.push(`/modifierTravel/${e}`)
+}
 const formattedDateD = (date) => {
     return new Date(date).toLocaleDateString();
 };
 
-// Cette fonction met à jour la position du tooltip
+
 const updatePosition = (e) => {
     mouseLeft.value = e.clientX - 470;
     mouseTop.value = e.clientY + 20;
 };
 
-// Affiche le tooltip avec la description complète
+
 const showTooltip = (desc) => {
     tooltipActive.value = true;
     descriptionn.value = desc;
