@@ -13,9 +13,9 @@
             </thead>
 
             <tbody>
-                <tr v-for="(list, index) in listTravel" :key="index">
-                    <td>{{ list.destination }}</td>
-                    <td>{{ list.name }}</td>
+                <tr v-for="(list, index) in listTravel" :key="index" class="vfor">
+                    <td>{{ list.destination.slice(0, 15) + (list.destination.length > 15 ? '...' : '') }}</td>
+                    <td>{{ list.name.slice(0, 15) + (list.name.length > 15 ? '...' : '') }}</td>
                     <td>{{ formattedDateD(list.start_date) }}</td>
                     <td>{{ formattedDateD(list.end_date) }}</td>
                     <td
@@ -23,7 +23,7 @@
                         @mousemove="updatePosition"
                         @mouseleave="tooltipActive = false;"
                         style="text-overflow:ellipsis; overflow: hidden;">
-                        {{ list.description.slice(0, 25) + ' ...' }}
+                        {{ list.description.slice(0, 25) + (list.description.length > 25 ? '...' : '') }}
                     </td>
                     
                     <td class="py-5 pr-10">
@@ -46,6 +46,7 @@
     </div>
 </template>
 
+
 <script setup>
 import { computed, onMounted, ref } from 'vue';
 import { AkPencil } from '@kalimahapps/vue-icons';
@@ -63,7 +64,6 @@ let mouseTop = ref(0);
 let descriptionn = ref('');
 
 
-const descrip = ref('');
 
 const update = (e) => {
     router.push(`/modifierTravel/${e}`)
@@ -72,12 +72,10 @@ const formattedDateD = (date) => {
     return new Date(date).toLocaleDateString();
 };
 
-
 const updatePosition = (e) => {
     mouseLeft.value = e.clientX - 470;
     mouseTop.value = e.clientY + 20;
 };
-
 
 const showTooltip = (desc) => {
     tooltipActive.value = true;
@@ -90,6 +88,11 @@ const showTooltip = (desc) => {
     width: 100%;
 }
 
+.vfor {
+    overflow-y: auto;
+    min-height: 100px;
+}
+
 .tooltip {
     position: absolute;
     width: 250px;
@@ -100,6 +103,7 @@ const showTooltip = (desc) => {
     background-color: white;
     transition: .1s;
     box-shadow: 0px 0px 15px -1px rgba(0, 0, 0, 0.2);
+    word-break: break-all;
 }
 
 table {
@@ -108,7 +112,7 @@ table {
 }
 
 thead th:nth-child(1) {
-    width: 12%;
+    width: 20%;
 }
 
 thead th:nth-child(2) {
@@ -116,7 +120,7 @@ thead th:nth-child(2) {
 }
 
 thead th:nth-child(3) {
-    width: 15%;
+    width: 10%;
 }
 
 thead th:nth-child(4) {
