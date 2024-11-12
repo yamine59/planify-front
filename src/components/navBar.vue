@@ -1,7 +1,7 @@
 <template>
     <div class="bgn flex flex-col items-center" v-if="user.username">
-        <div class="w-80 mb-20">
-            <a href="/"><img src="./../assets/img/Logo_en_blanc.png"></a>
+        <div @click="logout" class="w-80 mb-20">
+            <img src="./../assets/img/Logo_en_blanc.png">
         </div>
 
         <div class="flex flex-col h-full justify-between">

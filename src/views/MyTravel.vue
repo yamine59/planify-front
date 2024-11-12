@@ -18,7 +18,9 @@
                 </div>
             </div>
             <div class="">
-                <myTravelComp :listTravel="listTravel"
+                <myTravelComp 
+                :listTravel="listTravel"
+                
                 />
             </div>
 
@@ -40,7 +42,7 @@ onMounted(() => {
 const listTravel = ref()
 const list_travel = async () => {
     try {
-        const response = await fetch('http://localhost:3001/travel/showTravel/1', {
+        const response = await fetch(`http://localhost:3001/travel/showTravel/${user.value.id}`, {
             method: 'get',
 
             headers: {
@@ -58,6 +60,8 @@ const list_travel = async () => {
 
         // list_quizz.value.push(result.quizz) 
         listTravel.value = result.listtravel
+        console.log(listTravel.value);
+        
 
     } catch (err) {
         console.error('Error during login:', err);

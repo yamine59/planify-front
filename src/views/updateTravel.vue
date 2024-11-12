@@ -76,7 +76,7 @@
             </div>
 
             <div class="flex justify-center cursor-pointer">
-                <div @click="verify" class="p-5 w-52 rounded-xl bg-blue-500 text-center">
+                <div @click="" class="p-5 w-52 rounded-xl bg-blue-500 text-center">
                     Suivant
                 </div>
             </div>
@@ -90,10 +90,12 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import store from '@/store';
-import router from '@/router';
+import { useRoute, useRouter } from 'vue-router'
 import FormVoyage from '@/components/formVoyage.vue';
 import { User } from '@/types/types';
 import { IoOutlineAirplane, BsCalendar3, AkPencil, PhFillUsers, AkPaper, AnOutlinedDollarCircle } from '@kalimahapps/vue-icons';
+const route = useRoute()
+const router = useRouter()
 
 const destination = ref('');
 const arrive = ref('');
@@ -108,54 +110,23 @@ const erreurs = ref<string[]>([])
 const user = computed(() => store.state.user || {} as User);
 const userId = computed(() => store.state.user?.id || null);
 
-console.log("Utilisateur dans le store :", store.state.user);
 
+onMounted(() => {
+    travel()
+})
 
-const verify = (event: Event) => {
-    event.preventDefault()
-    erreurs.value = []
-
-    if (!destination.value.length) {
-        erreurs.value.push('Le champ destination est obligatoire !')
-    }
-    if (!arrive.value.length) {
-        erreurs.value.push("Le champ date d'arrivé est obligatoire !");
-    }
-    if (!depart.value.length) {
-        erreurs.value.push("Le champ date de départ est obligatoire !");
-    }
-    if (!nom.value.length) {
-        erreurs.value.push("Le champ nom est obligatoire !");
-    }
-    if (!participants.value || isNaN(Number(participants.value)) || Number(participants.value) <= 0) {
-        erreurs.value.push("Le champ participants est obligatoire et doit être un nombre positif !");
-    }
-    if (!description.value.length) {
-        erreurs.value.push("Le champ description est obligatoire !");
-    }
-
-    if (erreurs.value.length === 0) {
-        travel();
-    } else {
-        return;
-    }
-}
-
+const formattedDateD = (date:any) => {
+    return new Date(date).toLocaleDateString();
+};
 
 const travel = async () => {
-    const data = {
-        name: nom.value,
-        destination: destination.value,
-        persons: Number(participants.value),
-        start_date: arrive.value,
-        end_date: depart.value,
-        description: description.value,
-        amount: prix.value,
-    }
+   console.log(route.params.id);
     try {
-        const response = await fetch(`http://localhost:3001/travel/creationTravel/${userId.value}`, {
-            method: 'POST',
-            body: JSON.stringify(data),
+        const response = await fetch(`http://localhost:3001/travel/show1Travel/${route.params.id}`, {
+            // ${route.params.id}
+            
+            
+            method: 'get',
             headers: {
                 'Accept': 'application/json, text/plain, /',
                 'Content-Type': 'application/json',
@@ -164,21 +135,24 @@ const travel = async () => {
 
         if (!response.ok) {
             const errorData = await response.json();
-            console.error('Erreur lors de la création du voyage:', errorData.message);
+            console.error('Erreur lors de la recuperation du voyage:', errorData.message);
             return;
         }
 
-        nom.value = ''
-        destination.value = ''
-        participants.value = ''
-        arrive.value = ''
-        depart.value = ''
-        description.value = ''
-        prix.value = ''
+        const result = await response.json();
+        const travel = result.listtravel[0]
+        
+        nom.value = travel.name;
+        destination.value = travel.destination;
+        participants.value = travel.persons;
+        arrive.value = formattedDateD(travel.start_date);
+        depart.value = formattedDateD(travel.end_date);
+        description.value = travel.description;
+        prix.value = travel.amount;
 
-        router.push('/creation-activite')
+       
     } catch (error) {
-        console.error('Erreur durant la création du voyage : ', error)
+        console.error('Erreur durant la recherche de voyage : ', error)
     }
 }
 </script>
