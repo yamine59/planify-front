@@ -47,6 +47,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/updateActivity.vue'),
     meta: { requiresAuth: true },
   },
+  {
+    path: '/contact',
+    name: 'Contact',
+    component: () => import('../views/Contact.vue')
+  },
 ];
 
 const router = createRouter({
