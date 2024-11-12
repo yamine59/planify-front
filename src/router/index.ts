@@ -31,6 +31,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'activite-create',
     component: () => import('../views/createActivity.vue')
   },
+  {
+    path: '/contact',
+    name: 'Contact',
+    component: () => import('../views/Contact.vue')
+  },
 ];
 
 const router = createRouter({
