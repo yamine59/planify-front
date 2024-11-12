@@ -11,6 +11,8 @@
   "dependencies": {
     "@kalimahapps/vue-icons": "^1.7.1",
     "@mdi/js": "^7.4.47",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.2",
     "serve": "^14.2.4",
     "sortablejs": "^1.15.3",
     "sortablejs-vue3": "^1.2.11",

@@ -5,68 +5,67 @@
         </div>
 
         <div class="container flex flex-col bg-white rounded-xl p-5 my-10">
-            <div class="flex justify-between">
-                <p class="fontBolt text-2xl mb-6">Creation de votre Planify</p>
-                <p class="fontBolt text-2xl mb-6 ">Votre récap</p>
-            </div>
+            <p class="fontBolt text-2xl mb-6">Creation de votre Planify</p>
 
             <div class="flex justify-between mb-10">
-                <FormVoyage 
-                class="w-2/5"
-                v-model:destination="destination"
-                v-model:arrive="arrive"
-                v-model:depart="depart"
-                v-model:nom="nom"
-                v-model:participants="participants"
-                v-model:prix="prix"
-                v-model:description="description"
-            />
+                <FormVoyage class="w-2/5" 
+                    v-model:destination="destination" 
+                    v-model:arrive="arrive"
+                    v-model:depart="depart" 
+                    v-model:nom="nom" 
+                    v-model:participants="participants" 
+                    v-model:prix="prix"
+                    v-model:description="description" 
+                />
 
-            <div class="recap w-2/5 rounded-lg px-6 py-4">
-                <div class="mb-4">
-                    <IoOutlineAirplane class="text-3xl mb-1"/>
-                    <p class="text-xl truncate">{{ destination }}</p>
-                </div>
-
-                <div class="mb-4">
-                    <BsCalendar3 class="text-3xl mb-1"/>
-                    <div class="flex gap-5">
-                        <p>{{ arrive }}</p>
-                        <p v-if="arrive && depart">/</p>
-                        <p>{{ depart }}</p>
+                <div class="recap flex flex-col w-2/5 rounded-lg px-6 py-4 justify-between">
+                    <div>
+                        <div class="mb-4">
+                            <IoOutlineAirplane class="text-3xl mb-1" v-if="destination" />
+                            <p class="text-xl truncate">{{ destination }}</p>
+                        </div>
+                        <div class="mb-4">
+                            <BsCalendar3 class="text-3xl mb-1" v-if="arrive" />
+                            <div class="flex gap-5">
+                                <p>{{ arrive }}</p>
+                                <p v-if="arrive && depart">/</p>
+                                <p>{{ depart }}</p>
+                            </div>
+                        </div>
+    
+                        <div class="mb-4">
+                            <AkPencil class="text-3xl mb-1" v-if="nom" />
+                            <p class="truncate">{{ nom }}</p>
+                        </div>
+    
+                        <div class="mb-4">
+                            <PhFillUsers class="text-3xl mb-1" v-if="participants" />
+                            <div class="flex gap-2">
+                                <p class="truncate">
+                                    {{ participants }}
+                                </p>
+                                <p v-if="participants">Participants</p>
+                            </div>
+                        </div>
+    
+                        <div class="mb-4">
+                            <AnOutlinedDollarCircle class="text-3xl mb-1" v-if="prix" />
+                            <div class="flex gap-2">
+                                <p class="truncate text-ellipsis whitespace-normal">
+                                    {{ prix }}
+                                </p>
+                                <p v-if="prix">€</p>
+                            </div>
+                        </div>
+    
+                        <div>
+                            <AkPaper class="text-3xl mb-1" v-if="description" />
+                            <p class="truncate line-clamp-4 text-ellipsis whitespace-normal">{{ description }}</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="mb-4">
-                    <AkPencil class="text-3xl mb-1"/>
-                    <p class="truncate">{{ nom }}</p>
+                    <pdf :recapData="{ destination, arrive, depart, nom, participants, description, prix }"/>
                 </div>
-
-                <div class="mb-4">
-                    <PhFillUsers class="text-3xl mb-1"/>
-                    <div class="flex gap-2">
-                        <p class="truncate">
-                            {{ participants }}
-                        </p>
-                        <p v-if="participants">Participants</p>
-                    </div>
-                </div>
-
-                <div class="mb-4">
-                    <AnOutlinedDollarCircle class="text-3xl mb-1"/>
-                    <div class="flex gap-2">
-                        <p class="truncate line-clamp-4 text-ellipsis whitespace-normal">
-                            {{ prix }}
-                        </p>
-                        <p v-if="prix">€</p>
-                    </div>
-                </div>
-
-                <div>
-                    <AkPaper class="text-3xl mb-1"/>
-                    <p class="truncate line-clamp-4 text-ellipsis whitespace-normal">{{ description }}</p>
-                </div>
-            </div>
             </div>
 
             <div class="text-red-600 my-2 text-center text-xs">
@@ -88,12 +87,14 @@
 
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, computed } from 'vue'
 import store from '@/store';
 import router from '@/router';
 import FormVoyage from '@/components/formVoyage.vue';
 import { User } from '@/types/types';
 import { IoOutlineAirplane, BsCalendar3, AkPencil, PhFillUsers, AkPaper, AnOutlinedDollarCircle } from '@kalimahapps/vue-icons';
+import pdf from '@/components/pdf.vue';
+
 
 const destination = ref('');
 const arrive = ref('');
