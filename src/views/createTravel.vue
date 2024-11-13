@@ -18,11 +18,21 @@
                     v-model:description="description" 
                 />
 
-                <div class="recap flex flex-col w-2/5 rounded-lg px-6 py-4 justify-between">
+                <div class="recap bg-blue-100 flex flex-col w-2/5 rounded-lg px-6 py-4 justify-between">
+                    
                     <div>
+                        <div class="flex items-center gap-1 justify-center">
+                            <img src="../assets/img/icon.png" class="w-14 h-14">
+                            <p class="text-center text-3xl">Votre planify</p>
+                        </div>
+                        
+                        <div class="mb-4 flex justify-center items-center mt-2">
+                            <p class="truncate text-xl underline-offset-2">{{ nom }}</p>
+                        </div>
+
                         <div class="mb-4">
                             <IoOutlineAirplane class="text-3xl mb-1" v-if="destination" />
-                            <p class="text-xl truncate">{{ destination }}</p>
+                            <p class="truncate text-sm">{{ destination }}</p>
                         </div>
                         <div class="mb-4">
                             <BsCalendar3 class="text-3xl mb-1" v-if="arrive" />
@@ -34,14 +44,9 @@
                         </div>
     
                         <div class="mb-4">
-                            <AkPencil class="text-3xl mb-1" v-if="nom" />
-                            <p class="truncate">{{ nom }}</p>
-                        </div>
-    
-                        <div class="mb-4">
                             <PhFillUsers class="text-3xl mb-1" v-if="participants" />
-                            <div class="flex gap-2">
-                                <p class="truncate">
+                            <div class="flex gap-2 items-center">
+                                <p class="truncate text-sm">
                                     {{ participants }}
                                 </p>
                                 <p v-if="participants">Participants</p>
@@ -50,8 +55,8 @@
     
                         <div class="mb-4">
                             <AnOutlinedDollarCircle class="text-3xl mb-1" v-if="prix" />
-                            <div class="flex gap-2">
-                                <p class="truncate text-ellipsis whitespace-normal">
+                            <div class="flex gap-2 items-center">
+                                <p class="truncate text-sm text-ellipsis whitespace-normal">
                                     {{ prix }}
                                 </p>
                                 <p v-if="prix">€</p>
@@ -60,7 +65,7 @@
     
                         <div>
                             <AkPaper class="text-3xl mb-1" v-if="description" />
-                            <p class="truncate line-clamp-4 text-ellipsis whitespace-normal">{{ description }}</p>
+                            <p class="truncate text-sm line-clamp-4 text-ellipsis whitespace-normal">{{ description }}</p>
                         </div>
                     </div>
 
@@ -92,7 +97,7 @@ import store from '@/store';
 import router from '@/router';
 import FormVoyage from '@/components/formVoyage.vue';
 import { User } from '@/types/types';
-import { IoOutlineAirplane, BsCalendar3, AkPencil, PhFillUsers, AkPaper, AnOutlinedDollarCircle } from '@kalimahapps/vue-icons';
+import { IoOutlineAirplane, BsCalendar3, PhFillUsers, AkPaper, AnOutlinedDollarCircle } from '@kalimahapps/vue-icons';
 import pdf from '@/components/pdf.vue';
 
 
@@ -202,9 +207,7 @@ const travel = async () => {
     font-family: $font-pop-bolt;
 }
 
-.recap {
-    background-color: $gris;
-}
+
 
 .truncate {
     word-break: break-word;

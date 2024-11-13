@@ -1,6 +1,13 @@
 <template>
     <form>
         <label class="text-sm">
+            <p class="mb-2 text-gray-600">Nom*</p>
+            <input type="text" v-model="nom"
+                class="w-full mb-4 border border-gray-300 text-sm rounded-lg focus:outline-blue-500 block input p-2.5"
+                placeholder="Mon voyage à Paris" />
+        </label>
+
+        <label class="text-sm">
             <p class="mb-2 text-gray-600">Destination*</p>
             <input type="text" v-model="destination"
                 class="w-full mb-4 border border-gray-300 text-sm rounded-lg focus:outline-blue-500 block input p-2.5"
@@ -22,13 +29,6 @@
         </div>
 
         <label class="text-sm">
-            <p class="mb-2 text-gray-600">Nom*</p>
-            <input type="text" v-model="nom"
-                class="w-full mb-4 border border-gray-300 text-sm rounded-lg focus:outline-blue-500 block input p-2.5"
-                placeholder="Mon voyage à Paris" />
-        </label>
-
-        <label class="text-sm">
             <p class="mb-2 text-gray-600">Nombre de participants*</p>
             <input type="number" v-model="participants"
                 class="w-full mb-4 border border-gray-300 text-sm rounded-lg focus:outline-blue-500 block input p-2.5"
@@ -44,7 +44,7 @@
 
         <label class="text-sm">
             <p class="mb-2 text-gray-600">Description*</p>
-            <textarea rows="5" v-model="description"
+            <textarea rows="8" v-model="description"
                 class="w-full border border-gray-300 text-sm rounded-lg focus:outline-blue-500 block input p-2.5" />
         </label>
     </form>
