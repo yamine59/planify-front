@@ -26,7 +26,7 @@
                     Vos voyages !
                 </p>
 
-                <div class="m-auto my-10 sm:mt-10 flex">
+                <div @click="register" class="m-auto my-10 sm:mt-10 flex">
                     <button class="banBtn p-3 w-36 rounded-lg text-white text-lg">
                         S'inscrire
                     </button>
