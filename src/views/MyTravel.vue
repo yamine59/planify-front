@@ -1,5 +1,5 @@
 <template>
-    <div class="containerbody font ">
+    <div class="containerbody">
         <div class="flex w-3/4 justify-start  mb-20 text-4xl">
             <p>Bonjour {{user.username}}</p>
         </div>
@@ -17,7 +17,7 @@
                     </select>
                 </div>
             </div>
-            <div class="">
+            <div>
                 <myTravelComp 
                 :listTravel="listTravel"
                 
@@ -60,7 +60,7 @@ const list_travel = async () => {
 
         // list_quizz.value.push(result.quizz) 
         listTravel.value = result.listtravel
-        console.log(listTravel.value);
+        console.log(listTravel.value)
         
 
     } catch (err) {
@@ -73,11 +73,6 @@ const list_travel = async () => {
 <style lang="scss" scoped>
 @import "@/style/variablecouleur.scss";
 @import "@/style/variableFont.scss";
-
-.font {
-    font-family: $font-pop;
-}
-
 .fontBolt {
     font-family: $font-pop-bolt;
 }
@@ -91,6 +86,7 @@ const list_travel = async () => {
     position: relative;
     background-color: $gris;
     padding-top: 5vh;
+    font-family: $font-pop;
 }
 
 .bodyTravel {
@@ -100,5 +96,7 @@ const list_travel = async () => {
     border-radius: 30px;
     min-height: 40%;
     width: 80%;
+    overflow-y: auto;
+    
 }
 </style>
