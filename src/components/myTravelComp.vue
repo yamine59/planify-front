@@ -13,12 +13,12 @@
             </thead>
 
             <tbody>
-                <tr v-for="(list, index) in listTravel" :key="index" class="vfor">
-                    <td>{{ list.destination.slice(0, 15) + (list.destination.length > 15 ? '...' : '') }}</td>
-                    <td>{{ list.name.slice(0, 15) + (list.name.length > 15 ? '...' : '') }}</td>
-                    <td>{{ formattedDateD(list.start_date) }}</td>
-                    <td>{{ formattedDateD(list.end_date) }}</td>
-                    <td
+                <tr v-for="(list, index) in listTravel" :key="index" class="vfor"  >
+                    <td @click="recap(list.id_travel)">{{ list.destination.slice(0, 15) + (list.destination.length > 15 ? '...' : '') }}</td>
+                    <td @click="recap(list.id_travel)">{{ list.name.slice(0, 15) + (list.name.length > 15 ? '...' : '') }}</td>
+                    <td @click="recap(list.id_travel)">{{ formattedDateD(list.start_date) }}</td>
+                    <td @click="recap(list.id_travel)">{{ formattedDateD(list.end_date) }}</td>
+                    <td @click="recap(list.id_travel)"
                         @mouseover="showTooltip(list.description)"
                         @mousemove="updatePosition"
                         @mouseleave="tooltipActive = false;"
@@ -58,6 +58,9 @@ const props = defineProps({
     id:Number,
 });
 
+const recap = (e) => {
+    router.push(`/votrePlanify/${e}`)
+}
 let tooltipActive = ref(false);
 let mouseLeft = ref(0);
 let mouseTop = ref(0);

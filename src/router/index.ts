@@ -42,13 +42,13 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: true },
   },
   {
-    path: '/modifierActivity/:id_activity',
+    path: '/modifierActivity/:id_travel',
     name: 'modifierActivity',
     component: () => import('../views/modifierActivity.vue'),
     meta: { requiresAuth: true },
   },
   {
-    path: '/votrePlanify',
+    path: '/votrePlanify/:id_travel',
     name: 'votrePlanify',
     component: () => import('../views/recap.vue'),
     meta: { requiresAuth: true },
