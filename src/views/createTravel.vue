@@ -177,7 +177,7 @@ const travel = async () => {
         description.value = ''
         prix.value = ''
 
-        router.push('/creation-activite')
+        router.push('/createActivity')
     } catch (error) {
         console.error('Erreur durant la création du voyage : ', error)
     }

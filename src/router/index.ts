@@ -30,27 +30,28 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: true },
   },
   {
-    path: '/creation-activite',
-    name: 'activite-create',
+    path: '/createActivity',
+    name: 'createActivity',
     component: () => import('../views/createActivity.vue'),
     meta: { requiresAuth: true },
   },
   {
-    path: '/modifierTravel/:id',
+    path: '/modifierTravel/:id_travel',
     name: 'modifierTravel',
-    component: () => import('../views/updateTravel.vue'),
+    component: () => import('../views/modifierTravel.vue'),
     meta: { requiresAuth: true },
   },
   {
-    path: '/modifieractivit/:id',
-    name: 'modifieractivite',
-    component: () => import('../views/updateActivity.vue'),
+    path: '/modifierActivity/:id_activity',
+    name: 'modifierActivity',
+    component: () => import('../views/modifierActivity.vue'),
     meta: { requiresAuth: true },
   },
   {
     path: '/contact',
     name: 'Contact',
-    component: () => import('../views/Contact.vue')
+    component: () => import('../views/Contact.vue'),
+    meta: { requiresAuth: true },
   },
 ];
 
