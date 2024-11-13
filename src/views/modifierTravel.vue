@@ -98,12 +98,12 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import store from '@/store';
-import { useRoute, useRouter } from 'vue-router'
 import FormVoyage from '@/components/formVoyage.vue';
 import { User } from '@/types/types';
 import { IoOutlineAirplane, BsCalendar3, PhFillUsers, AkPaper, AnOutlinedDollarCircle } from '@kalimahapps/vue-icons';
 import pdf from '@/components/pdf.vue';
 
+import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
 const router = useRouter()
 
@@ -217,7 +217,7 @@ const modifyTravel = async () => {
             return;
         }
         
-        router.push(`/modifierActivity/${route.params.id_activity}`)
+        router.push(`/modifierActivity/${route.params.id_travel}`)
         erreurs.value = []
        
     } catch (error) {

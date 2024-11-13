@@ -100,7 +100,8 @@ import { User } from '@/types/types';
 import { IoOutlineAirplane, BsCalendar3, PhFillUsers, AkPaper, AnOutlinedDollarCircle } from '@kalimahapps/vue-icons';
 import pdf from '@/components/pdf.vue';
 
-
+import { useRoute, useRouter } from 'vue-router'
+const route = useRoute()
 const destination = ref('');
 const arrive = ref('');
 const depart = ref('');
@@ -182,7 +183,7 @@ const travel = async () => {
         description.value = ''
         prix.value = ''
 
-        router.push('/createActivity')
+        router.push(`/createActivity/${route.params.id_travel}`)
     } catch (error) {
         console.error('Erreur durant la création du voyage : ', error)
     }

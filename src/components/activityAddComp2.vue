@@ -2,20 +2,19 @@
     <div class="flex ">
         <div class="flex justify-center ">
 
-            <div class="flex flex-col  scroll ">
+            <div class="flex   flex-wrap wl">
                 <div v-for="(list, index) in listActivity" :key="index"  class="">
                     <div class="flex justify-between">
-                        <div class="flex flex-col items-center justify-center">
-
-                            <div class="w-10 h-10 bl z-10 border-4 border-purple-500 rounded-full text-center content-center  text-white">
-                                {{ index +1 }}
-                            </div>
-                        </div>
+                       
                         
 
                         <div class="bl text-white font h-auto text-xs w-64 rounded-lg mb-7 m-5 p-5 ">
-
-                            <div class="fontBolt text-base break-words">{{ list.activity_name }}</div>
+                            <div class="flex justify-between ">
+                                <div class="fontBolt text-base break-words line-clamp-2 content-center flex-wrap uppercase">{{ list.activity_name }}</div>
+                                <div class="w-10 h-10 bl z-10 border-4 border-purple-500 rounded-full text-center content-center  text-white">
+                                    {{ index +1 }}
+                                </div>
+                            </div>
                             <div class="ligne"> </div>
                             <!-- Div pour la date formatée -->
                             <div class="flex ">
@@ -31,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-                <div  class=" lignev bg-purple-500 absolute"></div>
+              
             </div>
         </div>
     </div>
@@ -118,6 +117,9 @@ const formatDate = (datetime) => {
     background-color: $primary;
 }
 
+.wl{
+    width: 600px;
+}
 .ligne {
     height: 2px;
     width: 100%;
