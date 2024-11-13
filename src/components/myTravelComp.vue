@@ -2,7 +2,7 @@
     <div class="tableContainer">
         <table>
             <thead>
-                <tr>
+                <tr class="">
                     <th>Destination</th>
                     <th>Nom</th>
                     <th>Date Début</th>
@@ -85,6 +85,7 @@ const showTooltip = (desc) => {
 
 <style scoped>
 .tableContainer {
+    table-layout: auto;
     width: 100%;
 }
 

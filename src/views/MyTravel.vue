@@ -95,8 +95,16 @@ const list_travel = async () => {
     background-color: white;
     border-radius: 30px;
     min-height: 40%;
+    height: 80%;
     width: 80%;
     overflow-y: auto;
     
 }
+
+.bodyTravel::-webkit-scrollbar {
+ 
+    display: none;
+ 
+}
+
 </style>

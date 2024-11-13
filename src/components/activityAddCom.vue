@@ -13,9 +13,9 @@
                         </div>
                         
 
-                        <div class="bl text-white font h-32 text-xs w-80 rounded-lg mb-7 m-5 p-5 ">
+                        <div class="bl text-white font h-auto text-xs w-64 rounded-lg mb-7 m-5 p-5 ">
 
-                            <div class="fontBolt text-base">{{ list.activity_name }}</div>
+                            <div class="fontBolt text-base break-words">{{ list.activity_name }}</div>
                             <div class="ligne"> </div>
                             <!-- Div pour la date formatée -->
                             <div class="flex ">
@@ -160,5 +160,10 @@ const formatDate = (datetime) => {
 .scroll {
     overflow-y: auto;
     height: 500px;
+}
+.scroll::-webkit-scrollbar {
+ 
+    display: none;
+ 
 }
 </style>

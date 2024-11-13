@@ -48,6 +48,12 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: true },
   },
   {
+    path: '/votrePlanify',
+    name: 'votrePlanify',
+    component: () => import('../views/recap.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
     path: '/contact',
     name: 'Contact',
     component: () => import('../views/Contact.vue')

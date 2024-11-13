@@ -52,7 +52,14 @@
                         </div>
                     </div>
                 </form>
-                <activityAddCom :key="refreshKey" />
+                <div>
+                    <activityAddCom :key="refreshKey" />
+
+
+                    <div @click="recap" class="bg-purple-500 text-white w-36 p-5   rounded-xl">Votre Planify</div>
+
+
+                </div>
             </div>
 
         </div>
@@ -63,6 +70,7 @@
 import { ref, onMounted, computed } from 'vue';
 import activityAddCom from '@/components/activityAddCom.vue';
 import store from '@/store';
+import router from '@/router';
 
 const user = computed(() => store.state.user || {});
 
@@ -75,6 +83,10 @@ const refreshKey = ref(0);  // Variable pour gérer le rafraîchissement
 onMounted(() => {
     idtravel();
 });
+
+const recap = () => {
+    router.push('/votrePlanify')
+}
 
 const idtravel = async () => {
     try {
@@ -103,7 +115,7 @@ const activity = async () => {
         activity_date: date.value.replace('T', ' '),
         location: lieu.value,
     };
-    
+
     try {
         const response = await fetch(`http://localhost:3001/activity/creationActivity/${id_travel.value}`, {
             method: 'POST',
