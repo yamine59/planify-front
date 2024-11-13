@@ -47,7 +47,7 @@
     pdf.text('Arrivée:', 10, 35);
     pdf.text(props.recapData.arrive, 45, 35);
     pdf.text('/', 75, 35);
-    pdf.text(props.recapData.depart, 80, 35);
+    pdf.text(props.recapData.depart, 80, 35)
   
     // Nom
     pdf.text('Nom:', 10, 45);
