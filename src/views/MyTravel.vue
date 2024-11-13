@@ -60,7 +60,7 @@ const list_travel = async () => {
 
         // list_quizz.value.push(result.quizz) 
         listTravel.value = result.listtravel
-        console.log(listTravel.value);
+        console.log(listTravel.value)
         
 
     } catch (err) {
@@ -97,5 +97,6 @@ const list_travel = async () => {
     min-height: 40%;
     width: 80%;
     overflow-y: auto;
+    
 }
 </style>
