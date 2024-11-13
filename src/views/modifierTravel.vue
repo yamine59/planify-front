@@ -76,7 +76,7 @@
             </div>
 
             <div class="flex justify-center cursor-pointer">
-                <div @click="" class="p-5 w-52 rounded-xl bg-blue-500 text-center">
+                <div @click="modifyTravel" class="p-5 w-52 rounded-xl bg-blue-500 text-center">
                     Suivant
                 </div>
             </div>
@@ -94,6 +94,7 @@ import { useRoute, useRouter } from 'vue-router'
 import FormVoyage from '@/components/formVoyage.vue';
 import { User } from '@/types/types';
 import { IoOutlineAirplane, BsCalendar3, AkPencil, PhFillUsers, AkPaper, AnOutlinedDollarCircle } from '@kalimahapps/vue-icons';
+
 const route = useRoute()
 const router = useRouter()
 
@@ -111,22 +112,47 @@ const user = computed(() => store.state.user || {} as User);
 const userId = computed(() => store.state.user?.id || null);
 
 
-onMounted(() => {
-    travel()
-})
+
+const verify = (event: Event) => {
+    event.preventDefault()
+    erreurs.value = []
+
+    if (!destination.value.length) {
+        erreurs.value.push('Le champ destination est obligatoire !')
+    }
+    if (!arrive.value.length) {
+        erreurs.value.push("Le champ date d'arrivé est obligatoire !");
+    }
+    if (!depart.value.length) {
+        erreurs.value.push("Le champ date de départ est obligatoire !");
+    }
+    if (!nom.value.length) {
+        erreurs.value.push("Le champ nom est obligatoire !");
+    }
+    if (!participants.value || isNaN(Number(participants.value)) || Number(participants.value) <= 0) {
+        erreurs.value.push("Le champ participants est obligatoire et doit être un nombre positif !");
+    }
+    if (!description.value.length) {
+        erreurs.value.push("Le champ description est obligatoire !");
+    }
+
+    if (erreurs.value.length === 0) {
+        modifyTravel();
+    } else {
+        return;
+    }
+}
+
+
 
 const formattedDateD = (date:any) => {
     return new Date(date).toLocaleDateString();
 };
 
 const travel = async () => {
-   console.log(route.params.id);
     try {
-        const response = await fetch(`http://localhost:3001/travel/show1Travel/${route.params.id}`, {
-            // ${route.params.id}
-            
-            
-            method: 'get',
+        const response = await fetch(`http://localhost:3001/travel/show1Travel/${route.params.id_travel}`, {
+            method: 'GET',
             headers: {
                 'Accept': 'application/json, text/plain, /',
                 'Content-Type': 'application/json',
@@ -155,6 +181,44 @@ const travel = async () => {
         console.error('Erreur durant la recherche de voyage : ', error)
     }
 }
+
+const modifyTravel = async () => {
+    const data = {
+        destination: destination.value,
+        start_date: arrive.value,
+        end_date: depart.value,
+        description: description.value,
+        persons: participants.value,
+        name: nom.value,
+    }
+
+    try {
+        const response = await fetch(`http://localhost:3001/travel/modifierTravel/${route.params.id_travel}`, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {
+                'Accept': 'application/json, text/plain, /',
+                'Content-Type': 'application/json',
+            },
+        })
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('Erreur lors de la recuperation du voyage:', errorData.message);
+            return;
+        }
+        
+        router.push(`/modifierActivity/${route.params.id_activity}`)
+        erreurs.value = []
+       
+    } catch (error) {
+        console.error('Erreur durant la recherche de voyage : ', error)
+    }
+}
+
+onMounted(() => {
+    travel()
+})
 </script>
 
 
