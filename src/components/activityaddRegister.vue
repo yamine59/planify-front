@@ -2,19 +2,20 @@
     <div class="flex ">
         <div class="flex justify-center ">
 
-            <div class="flex   flex-wrap wl">
+            <div class="flex flex-col  scroll ">
                 <div v-for="(list, index) in listActivity" :key="index"  class="">
                     <div class="flex justify-between">
-                       
+                        <div class="flex flex-col items-center justify-center">
+
+                            <div class="w-10 h-10 bl z-10 border-4 border-purple-500 rounded-full text-center content-center  text-white">
+                                {{ index +1 }}
+                            </div>
+                        </div>
                         
 
                         <div class="bl text-white font h-auto text-xs w-64 rounded-lg mb-7 m-5 p-5 ">
-                            <div class="flex justify-between  ">
-                                <div class="fontBolt text-base break-words line-clamp-1 w-40 content-center uppercase">{{ list.activity_name }}</div>
-                                <div class="w-10 h-10 bl z-10 border-4  border-purple-500 rounded-full text-center content-center  text-white">
-                                    {{ index +1 }}
-                                </div>
-                            </div>
+
+                            <div class="fontBolt text-base break-words">{{ list.activity_name }}</div>
                             <div class="ligne"> </div>
                             <!-- Div pour la date formatée -->
                             <div class="flex ">
@@ -30,32 +31,57 @@
                         </div>
                     </div>
                 </div>
-              
+                <div  class=" lignev bg-purple-500 absolute"></div>
             </div>
         </div>
     </div>
 </template>
 
-
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import store from '@/store';
-import { useRoute, useRouter } from 'vue-router'
-const route = useRoute()
+
 const user = computed(() => store.state.user || {});
 
 onMounted(() => {
-    activity();
+    idtravel();
 
 })
 
+const id_travel = ref();
 
+const idtravel = async () => {
+
+    try {
+        const response = await fetch(`http://localhost:3001/travel/showTravel/${user.value.id}`, {
+            method: 'get',
+            headers: {
+
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            console.log("ERREUR")
+            alert("erreur ")
+        }
+
+        const result = await response.json();
+        id_travel.value = result.listtravel[0].id_travel
+
+        activity();
+    } catch (err) {
+        console.error('Error during fetch showtravel:', err);
+    }
+
+}
 
 const listActivity = ref()
 const activity = async () => {
+    console.log('compid', id_travel.value);
 
     try {
-        const response = await fetch(`http://localhost:3001/activity/showActivity/${route.params.id_travel}`, {
+        const response = await fetch(`http://localhost:3001/activity/showActivity/${id_travel.value}`, {
             method: 'get',
             headers: {
 
@@ -70,6 +96,7 @@ const activity = async () => {
 
         const result = await response.json();
         listActivity.value = result.listActivity
+        console.log(listActivity.value);
 
     } catch (err) {
         console.error('Error during fetch showtravel:', err);
@@ -117,9 +144,6 @@ const formatDate = (datetime) => {
     background-color: $primary;
 }
 
-.wl{
-    width: 600px;
-}
 .ligne {
     height: 2px;
     width: 100%;
@@ -135,10 +159,5 @@ const formatDate = (datetime) => {
 .scroll {
     overflow-y: auto;
     height: 500px;
-}
-.scroll::-webkit-scrollbar {
- 
-    display: none;
- 
 }
 </style>

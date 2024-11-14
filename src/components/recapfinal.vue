@@ -1,73 +1,69 @@
 <template>
     <div>
-        <!-- Section à capturer -->
         <div >
-            <form>
+            <form >
                 <p class="mb-2 text-gray-600">Votre Destination</p>
-                <div class="w-full mb-4 border border-gray-300 text-sm rounded-lg focus:outline-blue-500 block input p-2.5">
+                <div class="w-full mb-4 border border-gray-300 text-xl rounded-lg bl  text-white block input p-2.5">
                     {{ destination }}
                 </div>
 
                 <div class="flex gap-2">
-                    <label class="text-sm w-full">
+                    <label class=" w-full">
                         <p class="mb-2 text-gray-600">Arrivée</p>
-                        <div class="w-full mb-4 border border-gray-300 text-sm rounded-lg focus:outline-blue-500 block input p-2.5">
+                        <div class="w-full mb-4 border border-gray-300 text-xl rounded-lg bl text-white block input p-2.5">
                             {{ arrive }}
                         </div>
                     </label>
 
-                    <label class="text-sm w-full">
+                    <label class=" w-full">
                         <p class="mb-2 text-gray-600">Départ</p>
-                        <div class="w-full mb-4 border border-gray-300 text-sm rounded-lg focus:outline-blue-500 block input p-2.5">
+                        <div class="w-full mb-4 border border-gray-300 text-xl rounded-lg bl text-white block input p-2.5">
                             {{ depart }}
                         </div>
                     </label>
                 </div>
 
-                <label class="text-sm">
+                <label class="">
                     <p class="mb-2 text-gray-600">Nombre de participants</p>
-                    <div class="w-full mb-4 border border-gray-300 text-sm rounded-lg focus:outline-blue-500 block input p-2.5">
+                    <div class="w-full mb-4 border border-gray-300 text-xl rounded-lg bl text-white block input p-2.5">
                         {{ participants }}
                     </div>
                 </label>
 
-                <label class="text-sm">
+                <label class="">
                     <p class="mb-2 text-gray-600">Prix</p>
-                    <div class="w-full mb-4 border border-gray-300 text-sm rounded-lg focus:outline-blue-500 block input p-2.5">
+                    <div class="w-full mb-4 border border-gray-300 text-xl rounded-lg bl text-white block input p-2.5">
                         {{ prix }} €
                     </div>
                 </label>
 
-                <label class="text-sm">
+                <label class="">
                     <p class="mb-2 text-gray-600">Description</p>
-                    <div class="w-full border border-gray-300 text-sm rounded-lg focus:outline-blue-500 block input p-2.5">
+                    <div class="w-full border border-gray-300 text-xl rounded-lg bl text-white block input p-2.5">
                         {{ description }}
                     </div>
                 </label>
             </form>
         </div>
 
-        <!-- Bouton pour capturer et télécharger -->
+       
         
     </div>
 </template>
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import store from '@/store';
 import { useRoute } from 'vue-router';
 
-
 const route = useRoute();
-const user = computed(() => store.state.user || {});
-
-// Référence pour la section à capturer
-
 
 onMounted(() => {
     travel();
 });
 
+const emit = defineEmits([
+    'name'
+])
 const nom = ref();
 const destination = ref();
 const arrive = ref();
@@ -106,16 +102,27 @@ const travel = async () => {
         depart.value = formattedDateD(travel.end_date);
         description.value = travel.description;
         prix.value = travel.amount;
+        
+        console.log('compname',travel.name);
+        emit('name',travel.name)
     } catch (error) {
         console.error('Erreur durant la recherche de voyage : ', error);
     }
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "@/style/variablecouleur.scss";
+@import "@/style/variableFont.scss";
+
 .template-section {
     background-color: #f5f5f5;
     padding: 20px;
     border: 1px solid #ddd;
 }
+
+.bl {
+    background-color: $primary;
+}
+
 </style>

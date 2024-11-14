@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-center items-end content-end cursor-pointer m-4">
-      <div @click="savePdf" class="px-5 py-2 w-52 rounded-xl bg-blue-500 text-center">
+      <div  @click="savePdf" class="px-5 py-2 w-52 rounded-xl bg-blue-500 text-center">
         Télécharger le récap
       </div>
     </div>

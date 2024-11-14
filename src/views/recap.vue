@@ -5,12 +5,12 @@
       </div>
   
       <div class="flex justify-center gap-24 my-10">
-        <recapfinal class="w-96 text-center" />
+        <recapfinal class="w-96 text-center" @name="nom" />
         <activityAddComp2 />
       </div>
     </div>
     <div class="flex justify-center items-center w-full">
-      <button @click="captureAndDownload" class="p-5 rounded-lg bg-blue-400 m-5 mb-16">Télécharger le Template</button>
+      <button @click="captureAndDownload" class="p-5 rounded-lg bg-blue-400 m-5 mb-16">Télécharger Votre Planify</button>
     </div>
   </template>
   
@@ -20,9 +20,11 @@
   import { ref } from 'vue';
   import jsPDF from 'jspdf';
   import html2canvas from 'html2canvas';
-  
+  const named = ref ()
   const captureSection = ref(null);
-  
+  const nom = (name) => {
+    named.value = name 
+  }
   const captureAndDownload = () => {
     if (captureSection.value) {
       html2canvas(captureSection.value, { scale: 2 })  // Augmente la résolution de l'image
@@ -58,7 +60,8 @@
           pdf.addImage(imageData, 'PNG', centerX, centerY, imgWidth, imgHeight);
   
           // Télécharger le PDF
-          pdf.save('template-capture.pdf');
+        
+          pdf.save(`Planify-${named.value}.pdf`);
         })
         .catch(error => {
           console.error('Erreur lors de la capture:', error);
