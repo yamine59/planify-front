@@ -61,6 +61,7 @@ const props = defineProps({
 const recap = (e) => {
     router.push(`/votrePlanify/${e}`)
 }
+
 let tooltipActive = ref(false);
 let mouseLeft = ref(0);
 let mouseTop = ref(0);
