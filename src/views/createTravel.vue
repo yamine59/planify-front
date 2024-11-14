@@ -99,8 +99,8 @@ import FormVoyage from '@/components/formVoyage.vue';
 import { User } from '@/types/types';
 import { IoOutlineAirplane, BsCalendar3, PhFillUsers, AkPaper, AnOutlinedDollarCircle } from '@kalimahapps/vue-icons';
 import pdf from '@/components/pdf.vue';
+import { useRoute } from 'vue-router'
 
-import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
 const destination = ref('');
 const arrive = ref('');
@@ -114,9 +114,6 @@ const erreurs = ref<string[]>([])
 
 const user = computed(() => store.state.user || {} as User);
 const userId = computed(() => store.state.user?.id || null);
-
-console.log("Utilisateur dans le store :", store.state.user);
-
 
 const verify = (event: Event) => {
     event.preventDefault()
@@ -182,12 +179,13 @@ const travel = async () => {
         depart.value = ''
         description.value = ''
         prix.value = ''
-
-        router.push(`/createActivity/${route.params.id_travel}`)
+    
+        router.push(`/createActivity`)
     } catch (error) {
         console.error('Erreur durant la création du voyage : ', error)
     }
 }
+console.log(route.params.id_travel);
 </script>
 
 
