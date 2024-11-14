@@ -1,7 +1,7 @@
 <template>
     <div class="containerbody">
         <div class="flex w-3/4 justify-start  mb-20 text-4xl">
-            <p>Bonjour {{user.username}}</p>
+            <p class="capitalize">Bonjour {{user.username}}</p>
         </div>
 
 

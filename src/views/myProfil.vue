@@ -4,45 +4,46 @@
             <p class="capitalize">A votre écoute {{ user.username }} 😃</p>
         </div>
 
-        <div class="flex justify-center items-center mt-8">
-            <form class="w-2/5 bg-white rounded-xl p-5">
+        <div class="flex justify-center items-center flex-col mt-8">
+
+            <form  class="w-2/5 bg-white rounded-xl p-5">
+                <div class="text-green-600 my-2 text-center" v-if="succes">
+                    {{succes}}
+                </div>
+        
+                <div class="text-red-600 my-2 text-center">
+                    <p v-for="erreur in erreurs" :key="erreur">
+                        {{ erreur }}
+                    </p>
+                </div>
                 <div class="flex gap-2">
+                    
                     <label class="text-sm w-full">
-                        <p class="mb-2 text-gray-600">Nom*</p>
+                        <p class="mb-2 text-gray-600">Nom</p>
                         <input type="text"
-                            class="w-full mb-4 border border-gray-300 text-sm rounded-lg focus:outline-blue-500 marker:block input p-2.5" placeholder="Votre nom"/>
+                            class="w-full mb-4 border border-gray-300 text-sm rounded-lg focus:outline-blue-500 marker:block input p-2.5"  v-model="username"/>
                     </label>
     
-                    <label class="text-sm w-full">
-                        <p class="mb-2 text-gray-600">Prénom*</p>
-                        <input type="text"
-                            class="w-full mb-4 border border-gray-300 text-sm rounded-lg focus:outline-blue-500 marker:block input p-2.5" placeholder="Votre prénom"/>
-                    </label>
+                    
                 </div>
     
                 <label class="text-sm">
-                    <p class="mb-2 text-gray-600">Email*</p>
+                    <p class="mb-2 text-gray-600">Nouveau Mot de passe</p>
                     <input type="email" 
                         class="w-full mb-4 border border-gray-300 text-sm rounded-lg focus:outline-blue-500 block input p-2.5"
-                        placeholder="Votre e-mail" />
+                        v-model="password">
                 </label>
-    
                 <label class="text-sm">
-                    <p class="mb-2 text-gray-600">Téléphone*</p>
-                    <input type="tel"
+                    <p class="mb-2 text-gray-600">Comfirmer Mot de passe</p>
+                    <input type="email" 
                         class="w-full mb-4 border border-gray-300 text-sm rounded-lg focus:outline-blue-500 block input p-2.5"
-                        placeholder="Votre téléphone" max="10" />
+                        v-model="password2">
                 </label>
-    
-                <label class="text-sm">
-                    <p class="mb-2 text-gray-600">Description*</p>
-                    <textarea rows="6"
-                        class="w-full border border-gray-300 text-sm rounded-lg focus:outline-blue-500 block input p-2.5" placeholder="Votre Message"/>
-                </label>
+             
 
                 <div class="flex justify-center cursor-pointer mt-8">
-                    <div class="p-5 w-52 rounded-xl bg-blue-500 text-center">
-                        Organiser
+                    <div @click="updateProfil" class="p-5 w-52 rounded-xl bg-blue-500 text-center">
+                        Modifier
                     </div>
                 </div>
             </form>
@@ -52,11 +53,12 @@
 
 
 
-<script setup lang="ts">
+<script setup>
 import { ref, onMounted, computed } from 'vue'
 import store from '@/store';
 import router from '@/router';
-import { User } from '@/types/types';
+import { useRoute } from 'vue-router'
+const route = useRoute();
 
 const destination = ref('');
 const arrive = ref('');
@@ -65,16 +67,58 @@ const nom = ref('');
 const participants = ref('');
 const description = ref('');
 const prix = ref('');
-
-const erreurs = ref<string[]>([])
-
-const user = computed(() => store.state.user || {} as User);
+const user = computed(() => store.state.user || {} );
 const userId = computed(() => store.state.user?.id || null);
+
+const erreurs = ref([])
+const succes = ref('')
+const username = ref(user.value.username)
+
+const password = ref()
+const password2 = ref()
+
+const updateProfil = async () => {
+    const data = {
+        username: username.value,
+        password: password.value,
+    }
+   if (password.value !== password2.value ){
+    erreurs.value.push('les mots de passes sont pas identiques !')
+    return
+   }
+    try {
+        const response = await fetch(`http://localhost:3001/users/modifierProfile/${userId.value}`, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {
+                'Accept': 'application/json, text/plain,/',
+                'Content-Type': 'application/json',
+            },
+        })
+        if (!response.ok) {
+            console.error('Erreur lors de la connexion:', response.statusText);
+            erreurs.value.push('Email ou mot de passe invalides !')
+            return;
+        }
+
+        succes.value = "Informations modifiées avec succès !"
+
+        store.dispatch('logout'); 
+        router.push('/login')
+    } catch (error) {
+        console.error('Erreur durant la modifiation des infos : ', error)
+    }
+}
+const deleteProfil = () => {
+    
+}
+
+
 
 console.log("Utilisateur dans le store :", store.state.user);
 
 
-const verify = (event: Event) => {
+const verify = (event) => {
     event.preventDefault()
     erreurs.value = []
 

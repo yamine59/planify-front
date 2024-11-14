@@ -31,7 +31,7 @@
                 </div>
     
                 <div class="flex rounded-lg justify-between text-white p-4 w-80 ">
-                    <div class="flex hn rounded-lg items-center text-white gap-3 p-5">
+                    <div @click="profil" class="flex hn rounded-lg items-center text-white gap-3 p-5">
                         <div class="cursor-pointer">
                             <p>{{ user.username }}</p>
                         </div>
@@ -55,7 +55,7 @@ import store from '@/store';
 import { CgProfile, FlIOsArrowRtl, LuLogOut } from '@kalimahapps/vue-icons';
 import { computed } from 'vue';
 const user = computed(() => store.state.user || {});
-
+const userId = computed(() => store.state.user?.id || null);
 const travel = () => {
     router.push('/voyage')
 }
@@ -66,6 +66,9 @@ const contact = () => {
     router.push('/contact')
 }
 
+const profil = () => {
+    router.push(`/myProfil/${userId.value}`)
+}
 
 const logout = () => {
     store.dispatch('logout'); // Call the logout action in Vuex

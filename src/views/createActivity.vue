@@ -1,7 +1,7 @@
 <template>
     <div class="containerbody font ">
         <div class="flex w-2/3 justify-start  mb-20 text-4xl">
-            <p>Bonjour {{ user.username }},</p>
+            <p class="capitalize">Bonjour {{ user.username }},</p>
         </div>
 
 
@@ -85,7 +85,7 @@ onMounted(() => {
 });
 
 const recap = () => {
-    router.push(`/votrePlanify/${route.params.id_travel}`)
+    router.push(`/votrePlanify/${id_travel.value}`)
 }
 const idtravel = async () => {
     try {

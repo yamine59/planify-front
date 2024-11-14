@@ -46,7 +46,7 @@
 
         <label class="text-sm">
             <p class="mb-2 text-gray-600">Description*</p>
-            <textarea rows="8" v-model="description"
+            <textarea rows="6" v-model="description"
                 class="w-full border border-gray-300 text-sm rounded-lg focus:outline-blue-500 block input p-2.5" />
         </label>
     </form>
