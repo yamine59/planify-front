@@ -53,8 +53,11 @@
                     </div>
                 </form>
                 <div>
-                    <activityAddCom :key="refreshKey" />
-                    <div @click="recap" class="bg-purple-500 text-white w-36 p-5   rounded-xl">Votre Planify</div>
+                    <activityaddRegister :key="refreshKey" />
+                    <div class="flex justify-center ">
+
+                        <div @click="recap" class="bg-purple-500 text-white w-36 p-5 ml-5 my-10  rounded-xl">Votre Planify</div>
+                    </div>
                 </div>
             </div>
 
@@ -64,7 +67,7 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import activityAddCom from '@/components/activityAddCom.vue';
+import activityaddRegister from '@/components/activityaddRegister.vue';
 import store from '@/store';
 import router from '@/router';
 import { useRoute, useRouter } from 'vue-router'
@@ -82,9 +85,8 @@ onMounted(() => {
 });
 
 const recap = () => {
-    router.push('/votrePlanify/')
+    router.push(`/votrePlanify/${route.params.id_travel}`)
 }
-
 const idtravel = async () => {
     try {
         const response = await fetch(`http://localhost:3001/travel/showTravel/${user.value.id}`, {
@@ -112,7 +114,7 @@ const activity = async () => {
         activity_date: date.value.replace('T', ' '),
         location: lieu.value,
     };
-
+    
     try {
         const response = await fetch(`http://localhost:3001/activity/creationActivity/${id_travel.value}`, {
             method: 'POST',
@@ -141,6 +143,7 @@ const activity = async () => {
         console.error('Erreur durant la création du voyage : ', error);
     }
 };
+
 
 </script>
 

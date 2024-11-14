@@ -69,7 +69,7 @@
                         </div>
                     </div>
 
-                    <pdf :recapData="{ destination, arrive, depart, nom, participants, description, prix }"/>
+                    <pdf v-if="destination || nom" :recapData="{ destination, arrive, depart, nom, participants, description, prix }"/>
                 </div>
             </div>
 
@@ -145,7 +145,6 @@ const verify = (event: Event) => {
     }
 }
 
-
 const travel = async () => {
     const data = {
         name: nom.value,
@@ -179,7 +178,7 @@ const travel = async () => {
         depart.value = ''
         description.value = ''
         prix.value = ''
-    
+
         router.push(`/createActivity`)
     } catch (error) {
         console.error('Erreur durant la création du voyage : ', error)
