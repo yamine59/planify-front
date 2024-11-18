@@ -104,13 +104,46 @@ const updateProfil = async () => {
         succes.value = "Informations modifiées avec succès !"
 
         store.dispatch('logout'); 
-        router.push('/login')
+        login()
+        // router.push('/login')
     } catch (error) {
         console.error('Erreur durant la modifiation des infos : ', error)
     }
 }
-const deleteProfil = () => {
-    
+const setTokenStore = (token) => {
+  const user = JSON.parse(atob(token.split('.')[1]));
+  store.commit('setUser', user);
+  store.commit('setToken', token);
+  store.commit('createToken', token);
+
+};
+const login = async () => {
+    const data = {
+        username: username.value,
+        password: password.value,
+    }
+
+    try {
+        const response = await fetch('http://localhost:3001/users/login', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Accept': 'application/json, text/plain, /',
+                'Content-Type': 'application/json',
+            },
+        })
+        if (!response.ok) {
+            console.error('Erreur lors de la connexion:', response.statusText);
+            erreurs.value.push('Email ou mot de passe invalides !')
+            return;
+        }
+
+        const result = await response.json()
+        setTokenStore(result.token);
+        
+    } catch (error) {
+        console.error('Erreur durant la connexion : ', error)
+    }
 }
 
 
