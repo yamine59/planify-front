@@ -83,8 +83,11 @@
                 </p>
             </div>
 
-            <div class="flex justify-center cursor-pointer">
-                <div @click.prevent="verify" class="p-5 w-52 rounded-xl bg-blue-500 text-center">
+            <div class="flex justify-between cursor-pointer">
+                <div @click.prevent="deleteTrvael" class="p-5 w-52 rounded-xl bg-red-500 hover:bg-red-700 text-center">
+                    Supprimer voyage
+                </div>
+                <div @click.prevent="verify" class="p-5 w-52 rounded-xl bg-blue-500 hover:bg-blue-700 text-center">
                     Suivant
                 </div>
             </div>
@@ -102,8 +105,8 @@ import FormVoyage from '@/components/formVoyage.vue';
 import { User } from '@/types/types';
 import { IoOutlineAirplane, BsCalendar3, PhFillUsers, AkPaper, AnOutlinedDollarCircle } from '@kalimahapps/vue-icons';
 import pdf from '@/components/pdf.vue';
-
 import { useRoute, useRouter } from 'vue-router'
+
 const route = useRoute()
 const router = useRouter()
 
@@ -160,7 +163,7 @@ const formattedDateD = (date:any) => {
 
 const travel = async () => {
     try {
-        const response = await fetch(`http://localhost:3001/travel/show1Travel/${route.params.id_travel}`, {
+        const response = await fetch(`http://localhost:3001/travel/showTheTravel/${route.params.id_travel}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json, text/plain, /',
@@ -222,6 +225,27 @@ const modifyTravel = async () => {
        
     } catch (error) {
         console.error('Erreur durant la recherche de voyage : ', error)
+    }
+}
+
+const deleteTrvael = async () => {
+    try {
+        const response = await fetch(`http://localhost:3001/travel/supprimerTravel/${route.params.id_travel}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json, text/plain, /',
+                'Content-Type': 'application/json',
+            }
+        })
+        if (!response.ok) {
+            console.error('Erreur lors de la suppression');
+            return;
+        }
+        console.log(response)
+        
+        router.push('/voyage')
+    } catch (error) {
+        console.error('Erreur durant la supression : ', error)
     }
 }
 
