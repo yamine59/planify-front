@@ -78,7 +78,7 @@ const formattedDateD = (date) => {
 
 const travel = async () => {
     try {
-        const response = await fetch(`http://localhost:3001/travel/show1Travel/${route.params.id_travel}`, {
+        const response = await fetch(`http://localhost:3001/travel/showTheTravel/${route.params.id_travel}`, {
             method: 'get',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
