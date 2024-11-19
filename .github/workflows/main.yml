@@ -17,7 +17,6 @@ jobs:
       # Étape 2 : Installer les dépendances et construire le projet (Frontend)
       - name: Install dependencies and build (Frontend)
         run: |
-          cd frontcicd
           npm install
           npm run build
 
