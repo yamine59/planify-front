@@ -59,7 +59,7 @@ const listActivity = ref()
 const deleteActivity = async (id_activity,index) => {
 
     try {
-        const response = await fetch(`http://planify-back-production-af72.up.railway.app/activity/supprimerActivity/${route.params.id_travel}/${id_activity}`, {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/activity/supprimerActivity/${route.params.id_travel}/${id_activity}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json, text/plain, /',
@@ -82,7 +82,7 @@ const deleteActivity = async (id_activity,index) => {
 const activity = async () => {
 
     try {
-        const response = await fetch(`http://planify-back-production-af72.up.railway.app/activity/showActivity/${route.params.id_travel}`, {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/activity/showActivity/${route.params.id_travel}`, {
             method: 'get',
             headers: {
 

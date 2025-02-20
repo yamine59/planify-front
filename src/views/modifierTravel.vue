@@ -163,7 +163,7 @@ const formattedDateD = (date:any) => {
 
 const travel = async () => {
     try {
-        const response = await fetch(`http://planify-back-production-af72.up.railway.app/travel/showTheTravel/${route.params.id_travel}`, {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/travel/showTheTravel/${route.params.id_travel}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json, text/plain, /',
@@ -205,7 +205,7 @@ const modifyTravel = async () => {
     }
 
     try {
-        const response = await fetch(`http://planify-back-production-af72.up.railway.app/travel/modifierTravel/${route.params.id_travel}`, {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/travel/modifierTravel/${route.params.id_travel}`, {
             method: 'PUT',
             body: JSON.stringify(data),
             headers: {
@@ -230,7 +230,7 @@ const modifyTravel = async () => {
 
 const deleteTrvael = async () => {
     try {
-        const response = await fetch(`http://planify-back-production-af72.up.railway.app/travel/supprimerTravel/${route.params.id_travel}`, {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/travel/supprimerTravel/${route.params.id_travel}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json, text/plain, /',

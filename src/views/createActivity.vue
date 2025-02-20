@@ -89,7 +89,7 @@ const recap = () => {
 }
 const idtravel = async () => {
     try {
-        const response = await fetch(`http://planify-back-production-af72.up.railway.app/travel/showTravel/${user.value.id}`, {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/travel/showTravel/${user.value.id}`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ const activity = async () => {
     };
     
     try {
-        const response = await fetch(`http://planify-back-production-af72.up.railway.app/activity/creationActivity/${id_travel.value}`, {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/activity/creationActivity/${id_travel.value}`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
