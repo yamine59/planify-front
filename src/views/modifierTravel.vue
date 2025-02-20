@@ -163,7 +163,7 @@ const formattedDateD = (date:any) => {
 
 const travel = async () => {
     try {
-        const response = await fetch(`http://localhost:3001/travel/showTheTravel/${route.params.id_travel}`, {
+        const response = await fetch(`http://planify-back-production-af72.up.railway.app/travel/showTheTravel/${route.params.id_travel}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json, text/plain, /',
@@ -205,7 +205,7 @@ const modifyTravel = async () => {
     }
 
     try {
-        const response = await fetch(`http://localhost:3001/travel/modifierTravel/${route.params.id_travel}`, {
+        const response = await fetch(`http://planify-back-production-af72.up.railway.app/travel/modifierTravel/${route.params.id_travel}`, {
             method: 'PUT',
             body: JSON.stringify(data),
             headers: {
@@ -230,7 +230,7 @@ const modifyTravel = async () => {
 
 const deleteTrvael = async () => {
     try {
-        const response = await fetch(`http://localhost:3001/travel/supprimerTravel/${route.params.id_travel}`, {
+        const response = await fetch(`http://planify-back-production-af72.up.railway.app/travel/supprimerTravel/${route.params.id_travel}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json, text/plain, /',
@@ -256,9 +256,25 @@ onMounted(() => {
 
 
 <style lang="scss" scoped>
-@import "@/style/variablecouleur.scss";
-@import "@/style/variableFont.scss";
+$primary:#6872F0;
+$btn:#4C58D4;
+$black:rgba(34, 35, 38, 1);
+$white:rgba(255, 236, 236, 1);
+$gris: #D9D9D9;
+$grisFonce: #8a8a8a;
+@font-face {
+    font-family: 'poppins';
+    src: url('./../assets/font/Poppins/Poppins-Medium.ttf');
+};
 
+@font-face {
+    font-family: 'poppinsBolt';
+    src: url('./../assets/font/Poppins/Poppins-Bold.ttf');
+};
+
+
+$font-pop:'poppins';
+$font-pop-bolt:'poppinsBolt';
 .containerbody {
     font-family: $font-pop;
     background-color: $gris;

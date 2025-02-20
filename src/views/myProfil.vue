@@ -87,7 +87,7 @@ const updateProfil = async () => {
     return
    }
     try {
-        const response = await fetch(`http://localhost:3001/users/modifierProfile/${userId.value}`, {
+        const response = await fetch(`http://planify-back-production-af72.up.railway.app/users/modifierProfile/${userId.value}`, {
             method: 'PUT',
             body: JSON.stringify(data),
             headers: {
@@ -124,7 +124,7 @@ const login = async () => {
     }
 
     try {
-        const response = await fetch('http://localhost:3001/users/login', {
+        const response = await fetch('http://planify-back-production-af72.up.railway.app/users/login', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -195,7 +195,7 @@ const travel = async () => {
         amount: prix.value,
     }
     try {
-        const response = await fetch(`http://localhost:3001/travel/creationTravel/${userId.value}`, {
+        const response = await fetch(`http://planify-back-production-af72.up.railway.app/travel/creationTravel/${userId.value}`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -227,9 +227,25 @@ const travel = async () => {
 
 
 <style lang="scss" scoped>
-@import "@/style/variablecouleur.scss";
-@import "@/style/variableFont.scss";
+$primary:#6872F0;
+$btn:#4C58D4;
+$black:rgba(34, 35, 38, 1);
+$white:rgba(255, 236, 236, 1);
+$gris: #D9D9D9;
+$grisFonce: #8a8a8a;
+@font-face {
+    font-family: 'poppins';
+    src: url('./../assets/font/Poppins/Poppins-Medium.ttf');
+};
 
+@font-face {
+    font-family: 'poppinsBolt';
+    src: url('./../assets/font/Poppins/Poppins-Bold.ttf');
+};
+
+
+$font-pop:'poppins';
+$font-pop-bolt:'poppinsBolt';
 .containerbody {
     font-family: $font-pop;
     background-color: $gris;
