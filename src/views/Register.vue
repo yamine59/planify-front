@@ -125,7 +125,7 @@ const register = async () => {
     }
 
     try {
-        const response = await fetch('http://planify-back-production-af72.up.railway.app/users/register', {
+        const response = await fetch('https://planify-back-production-af72.up.railway.app/users/register', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {

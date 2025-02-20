@@ -78,7 +78,7 @@ const formattedDateD = (date) => {
 
 const travel = async () => {
     try {
-        const response = await fetch(`http://planify-back-production-af72.up.railway.app/travel/showTheTravel/${route.params.id_travel}`, {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/travel/showTheTravel/${route.params.id_travel}`, {
             method: 'get',
             headers: {
                 'Accept': 'application/json, text/plain, */*',

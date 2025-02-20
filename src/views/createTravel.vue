@@ -156,7 +156,7 @@ const travel = async () => {
         amount: prix.value,
     }
     try {
-        const response = await fetch(`http://planify-back-production-af72.up.railway.app/travel/creationTravel/${userId.value}`, {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/travel/creationTravel/${userId.value}`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {

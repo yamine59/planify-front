@@ -53,7 +53,7 @@ const id_travel = ref();
 const idtravel = async () => {
 
     try {
-        const response = await fetch(`http://planify-back-production-af72.up.railway.app/travel/showTravel/${user.value.id}`, {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/travel/showTravel/${user.value.id}`, {
             method: 'get',
             headers: {
 
@@ -81,7 +81,7 @@ const activity = async () => {
     console.log('compid', id_travel.value);
 
     try {
-        const response = await fetch(`http://planify-back-production-af72.up.railway.app/activity/showActivity/${id_travel.value}`, {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/activity/showActivity/${id_travel.value}`, {
             method: 'get',
             headers: {
 

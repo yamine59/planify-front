@@ -42,7 +42,7 @@ onMounted(() => {
 const listTravel = ref()
 const list_travel = async () => {
     try {
-        const response = await fetch(`http://planify-back-production-af72.up.railway.app/travel/showTravel/${user.value.id}`, {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/travel/showTravel/${user.value.id}`, {
             method: 'get',
 
             headers: {
