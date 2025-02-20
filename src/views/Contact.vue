@@ -143,7 +143,7 @@ const travel = async () => {
 
         router.push('/')
     } catch (error) {
-        console.error('Erreur durant la création du voyage : ', error)
+        console.error('dErreur durant la création du voyage : ', error)
     }
 }
 </script>
