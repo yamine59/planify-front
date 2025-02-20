@@ -146,8 +146,25 @@ const register = () => {
 
 
 <style scoped lang="scss">
-@import "@/style/variablecouleur.scss";
-@import "@/style/variableFont.scss";
+$primary:#6872F0;
+$btn:#4C58D4;
+$black:rgba(34, 35, 38, 1);
+$white:rgba(255, 236, 236, 1);
+$gris: #D9D9D9;
+$grisFonce: #8a8a8a;
+@font-face {
+    font-family: 'poppins';
+    src: url('./../assets/font/Poppins/Poppins-Medium.ttf');
+};
+
+@font-face {
+    font-family: 'poppinsBolt';
+    src: url('./../assets/font/Poppins/Poppins-Bold.ttf');
+};
+
+
+$font-pop:'poppins';
+$font-pop-bolt:'poppinsBolt';
 .btn {
     background-color: $gris;
 }

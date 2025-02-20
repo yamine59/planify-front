@@ -93,7 +93,7 @@ const searchVille = async () => {
 
 const fetchVille = async (city_name) => {
     try {
-        const response = await fetch(`http://localhost:3001/city/${city_name}`);
+        const response = await fetch(`http://planify-back-production-af72.up.railway.app/city/${city_name}`);
         if (!response.ok) throw new Error(`Erreur lors de la récupération des villes`);
 
         const data = await response.json()
