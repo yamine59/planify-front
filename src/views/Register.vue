@@ -125,7 +125,7 @@ const register = async () => {
     }
 
     try {
-        const response = await fetch('http://localhost:3001/users/register', {
+        const response = await fetch('https://planify-back-production-af72.up.railway.app/users/register', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -154,9 +154,25 @@ const register = async () => {
 </script>
 
 <style lang="scss" scoped>
-@import "@/style/variablecouleur.scss";
-@import "@/style/variableFont.scss";
+@font-face {
+    font-family: 'poppins';
+    src: url('./../assets/font/Poppins/Poppins-Medium.ttf');
+};
 
+@font-face {
+    font-family: 'poppinsBolt';
+    src: url('./../assets/font/Poppins/Poppins-Bold.ttf');
+};
+
+
+$font-pop:'poppins';
+$font-pop-bolt:'poppinsBolt';
+$primary:#6872F0;
+$btn:#4C58D4;
+$black:rgba(34, 35, 38, 1);
+$white:rgba(255, 236, 236, 1);
+$gris: #D9D9D9;
+$grisFonce: #8a8a8a;
 .tout {
     font-family: $font-pop;
     background-color: #FAFBFF;

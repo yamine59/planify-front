@@ -1,7 +1,7 @@
 <template>
     <div class="containerbody">
         <div class="flex w-3/4 justify-start  mb-20 text-4xl">
-            <p>Bonjour {{user.username}}</p>
+            <p class="capitalize">Bonjour {{user.username}}</p>
         </div>
 
 
@@ -27,7 +27,7 @@
         </div>
     </div>
 </template>
-
+<!-- ddd -->
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import myTravelComp from '@/components/myTravelComp.vue';
@@ -42,7 +42,7 @@ onMounted(() => {
 const listTravel = ref()
 const list_travel = async () => {
     try {
-        const response = await fetch(`http://localhost:3001/travel/showTravel/${user.value.id}`, {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/travel/showTravel/${user.value.id}`, {
             method: 'get',
 
             headers: {
@@ -71,8 +71,25 @@ const list_travel = async () => {
 </script>
 
 <style lang="scss" scoped>
-@import "@/style/variablecouleur.scss";
-@import "@/style/variableFont.scss";
+$primary:#6872F0;
+$btn:#4C58D4;
+$black:rgba(34, 35, 38, 1);
+$white:rgba(255, 236, 236, 1);
+$gris: #D9D9D9;
+$grisFonce: #8a8a8a;
+@font-face {
+    font-family: 'poppins';
+    src: url('./../assets/font/Poppins/Poppins-Medium.ttf');
+};
+
+@font-face {
+    font-family: 'poppinsBolt';
+    src: url('./../assets/font/Poppins/Poppins-Bold.ttf');
+};
+
+
+$font-pop:'poppins';
+$font-pop-bolt:'poppinsBolt';
 .fontBolt {
     font-family: $font-pop-bolt;
 }

@@ -83,8 +83,11 @@
                 </p>
             </div>
 
-            <div class="flex justify-center cursor-pointer">
-                <div @click.prevent="verify" class="p-5 w-52 rounded-xl bg-blue-500 text-center">
+            <div class="flex justify-between cursor-pointer">
+                <div @click.prevent="deleteTrvael" class="p-5 w-52 rounded-xl bg-red-500 hover:bg-red-700 text-center">
+                    Supprimer voyage
+                </div>
+                <div @click.prevent="verify" class="p-5 w-52 rounded-xl bg-blue-500 hover:bg-blue-700 text-center">
                     Suivant
                 </div>
             </div>
@@ -102,8 +105,8 @@ import FormVoyage from '@/components/formVoyage.vue';
 import { User } from '@/types/types';
 import { IoOutlineAirplane, BsCalendar3, PhFillUsers, AkPaper, AnOutlinedDollarCircle } from '@kalimahapps/vue-icons';
 import pdf from '@/components/pdf.vue';
-
 import { useRoute, useRouter } from 'vue-router'
+
 const route = useRoute()
 const router = useRouter()
 
@@ -160,7 +163,7 @@ const formattedDateD = (date:any) => {
 
 const travel = async () => {
     try {
-        const response = await fetch(`http://localhost:3001/travel/show1Travel/${route.params.id_travel}`, {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/travel/showTheTravel/${route.params.id_travel}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json, text/plain, /',
@@ -202,7 +205,7 @@ const modifyTravel = async () => {
     }
 
     try {
-        const response = await fetch(`http://localhost:3001/travel/modifierTravel/${route.params.id_travel}`, {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/travel/modifierTravel/${route.params.id_travel}`, {
             method: 'PUT',
             body: JSON.stringify(data),
             headers: {
@@ -225,6 +228,27 @@ const modifyTravel = async () => {
     }
 }
 
+const deleteTrvael = async () => {
+    try {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/travel/supprimerTravel/${route.params.id_travel}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json, text/plain, /',
+                'Content-Type': 'application/json',
+            }
+        })
+        if (!response.ok) {
+            console.error('Erreur lors de la suppression');
+            return;
+        }
+        console.log(response)
+        
+        router.push('/voyage')
+    } catch (error) {
+        console.error('Erreur durant la supression : ', error)
+    }
+}
+
 onMounted(() => {
     travel()
 })
@@ -232,9 +256,25 @@ onMounted(() => {
 
 
 <style lang="scss" scoped>
-@import "@/style/variablecouleur.scss";
-@import "@/style/variableFont.scss";
+$primary:#6872F0;
+$btn:#4C58D4;
+$black:rgba(34, 35, 38, 1);
+$white:rgba(255, 236, 236, 1);
+$gris: #D9D9D9;
+$grisFonce: #8a8a8a;
+@font-face {
+    font-family: 'poppins';
+    src: url('./../assets/font/Poppins/Poppins-Medium.ttf');
+};
 
+@font-face {
+    font-family: 'poppinsBolt';
+    src: url('./../assets/font/Poppins/Poppins-Bold.ttf');
+};
+
+
+$font-pop:'poppins';
+$font-pop-bolt:'poppinsBolt';
 .containerbody {
     font-family: $font-pop;
     background-color: $gris;

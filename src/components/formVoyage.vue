@@ -46,7 +46,7 @@
 
         <label class="text-sm">
             <p class="mb-2 text-gray-600">Description*</p>
-            <textarea rows="8" v-model="description"
+            <textarea rows="6" v-model="description"
                 class="w-full border border-gray-300 text-sm rounded-lg focus:outline-blue-500 block input p-2.5" />
         </label>
     </form>
@@ -93,7 +93,7 @@ const searchVille = async () => {
 
 const fetchVille = async (city_name) => {
     try {
-        const response = await fetch(`http://localhost:3001/city/${city_name}`);
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/city/${city_name}`);
         if (!response.ok) throw new Error(`Erreur lors de la récupération des villes`);
 
         const data = await response.json()

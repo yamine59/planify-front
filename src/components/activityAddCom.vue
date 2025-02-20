@@ -3,19 +3,24 @@
         <div class="flex justify-center ">
 
             <div class="flex flex-col  scroll ">
-                <div v-for="(list, index) in listActivity" :key="index"  class="">
+                <div v-for="(list, index) in listActivity" :key="index" class="">
                     <div class="flex justify-between">
                         <div class="flex flex-col items-center justify-center">
 
-                            <div class="w-10 h-10 bl z-10 border-4 border-purple-500 rounded-full text-center content-center  text-white">
-                                {{ index +1 }}
+                            <div
+                                class="w-10 h-10 bl z-10 border-4 border-purple-500 rounded-full text-center content-center  text-white">
+                                {{ index + 1 }}
                             </div>
                         </div>
-                        
+
 
                         <div class="bl text-white font h-auto text-xs w-64 rounded-lg mb-7 m-5 p-5 ">
 
-                            <div class="fontBolt text-base break-words">{{ list.activity_name }}</div>
+                            <div class="flex justify-between items-center">
+                                <div class="fontBolt text-base break-words">{{ list.activity_name }}</div>
+                                <AnOutlinedDelete @click="deleteActivity(list.id_activity,index)"
+                                    class="h-5 w-5 cursor-pointer hover:text-red-600 rounded-3xl" />
+                            </div>
                             <div class="ligne"> </div>
                             <!-- Div pour la date formatée -->
                             <div class="flex ">
@@ -31,7 +36,7 @@
                         </div>
                     </div>
                 </div>
-                <div  class=" lignev bg-purple-500 absolute"></div>
+                <div class=" lignev bg-purple-500 absolute"></div>
             </div>
         </div>
     </div>
@@ -42,6 +47,7 @@
 import { ref, onMounted, computed } from 'vue'
 import store from '@/store';
 import { useRoute, useRouter } from 'vue-router'
+import { AnOutlinedDelete } from '@kalimahapps/vue-icons';
 const route = useRoute()
 const user = computed(() => store.state.user || {});
 
@@ -49,14 +55,34 @@ onMounted(() => {
     activity();
 
 })
-
-
-
 const listActivity = ref()
+const deleteActivity = async (id_activity,index) => {
+
+    try {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/activity/supprimerActivity/${route.params.id_travel}/${id_activity}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json, text/plain, /',
+                'Content-Type': 'application/json',
+            }
+        })
+        if (!response.ok) {
+            console.error('Erreur lors de la suppression');
+            return;
+        }
+        listActivity.value.splice(index,1)
+
+    } catch (error) {
+        console.error('Erreur durant la supression : ', error)
+    }
+
+}
+
+
 const activity = async () => {
 
     try {
-        const response = await fetch(`http://localhost:3001/activity/showActivity/${route.params.id_travel}`, {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/activity/showActivity/${route.params.id_travel}`, {
             method: 'get',
             headers: {
 
@@ -103,9 +129,24 @@ const formatDate = (datetime) => {
 </script>
 
 <style scoped lang="scss">
-@import "@/style/variablecouleur.scss";
-@import "@/style/variableFont.scss";
 
+$primary:#6872F0;
+$btn:#4C58D4;
+$black:rgba(34, 35, 38, 1);
+$white:rgba(255, 236, 236, 1);
+$gris: #D9D9D9;
+$grisFonce: #8a8a8a;
+@font-face {
+    font-family: 'poppins';
+    src: url('./../assets/font/Poppins/Poppins-Medium.ttf');
+};
+
+@font-face {
+    font-family: 'poppinsBolt';
+    src: url('./../assets/font/Poppins/Poppins-Bold.ttf');
+};
+$font-pop:'poppins';
+$font-pop-bolt:'poppinsBolt';
 .font {
     font-family: $font-pop;
 }
@@ -130,13 +171,15 @@ const formatDate = (datetime) => {
     height: 500PX;
     margin-left: 17px;
 }
+
 .scroll {
     overflow-y: auto;
     height: 500px;
 }
+
 .scroll::-webkit-scrollbar {
- 
+
     display: none;
- 
+
 }
 </style>

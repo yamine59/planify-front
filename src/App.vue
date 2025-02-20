@@ -17,7 +17,7 @@ const route = useRoute();
 const store = useStore();
 
 const isHome = computed(() => route.path === '/');
-
+// fff
 onMounted(() => {
   store.dispatch('checkAuth');
 });

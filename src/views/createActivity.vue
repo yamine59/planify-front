@@ -1,7 +1,7 @@
 <template>
     <div class="containerbody font ">
         <div class="flex w-2/3 justify-start  mb-20 text-4xl">
-            <p>Bonjour {{ user.username }},</p>
+            <p class="capitalize">Bonjour {{ user.username }},</p>
         </div>
 
 
@@ -85,11 +85,11 @@ onMounted(() => {
 });
 
 const recap = () => {
-    router.push(`/votrePlanify/${route.params.id_travel}`)
+    router.push(`/votrePlanify/${id_travel.value}`)
 }
 const idtravel = async () => {
     try {
-        const response = await fetch(`http://localhost:3001/travel/showTravel/${user.value.id}`, {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/travel/showTravel/${user.value.id}`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ const activity = async () => {
     };
     
     try {
-        const response = await fetch(`http://localhost:3001/activity/creationActivity/${id_travel.value}`, {
+        const response = await fetch(`https://planify-back-production-af72.up.railway.app/activity/creationActivity/${id_travel.value}`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -148,9 +148,25 @@ const activity = async () => {
 </script>
 
 <style lang="scss" scoped>
-@import "@/style/variablecouleur.scss";
-@import "@/style/variableFont.scss";
+$primary:#6872F0;
+$btn:#4C58D4;
+$black:rgba(34, 35, 38, 1);
+$white:rgba(255, 236, 236, 1);
+$gris: #D9D9D9;
+$grisFonce: #8a8a8a;
+@font-face {
+    font-family: 'poppins';
+    src: url('./../assets/font/Poppins/Poppins-Medium.ttf');
+};
 
+@font-face {
+    font-family: 'poppinsBolt';
+    src: url('./../assets/font/Poppins/Poppins-Bold.ttf');
+};
+
+
+$font-pop:'poppins';
+$font-pop-bolt:'poppinsBolt';
 .font {
     font-family: $font-pop;
 }
