@@ -12,6 +12,7 @@
     "@kalimahapps/vue-icons": "^1.7.1",
     "@mdi/js": "^7.4.47",
     "html2canvas": "^1.4.1",
+    "http-proxy-middleware": "^3.0.3",
     "jspdf": "^2.5.2",
     "serve": "^14.2.4",
     "sortablejs": "^1.15.3",
@@ -19,7 +20,6 @@
     "vue": "^3.2.13",
     "vue-router": "^4.4.5",
     "vuex": "^4.0.0"
-    
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",
